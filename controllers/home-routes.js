@@ -8,6 +8,41 @@ router.get('/', (req, res) => {
   res.render('homepage')
 })
 
+// login page
+router.get('/login', (req, res) => {
+  
+  if (req.session.logged_in) {
+    res.redirect('/dashboard');
+    return;
+  }
+
+  res.render('login');
+});
+
+// registration page
+router.get('/register', (req, res) => {
+  res.render('register')
+})
+
+//user dashboard
+router.get('/dashboard', withAuth, (req, res) => {
+  res.render('dashboard')
+})
+
+// user profile
+router.get('/profile', withAuth, (req, res) => {
+  res.render('profile')
+})
+
+router.get('/logout', (req, res) => {
+  res.render('logout')
+})
+
+module.exports = router;
+
+
+
+
 // router.get('/', withAuth, async (req, res) => {
 //   try {
 //     const userData = await User.findAll({
@@ -26,26 +61,3 @@ router.get('/', (req, res) => {
 //     res.status(500).json(err);
 //   }
 // });
-
-// login page
-router.get('/login', (req, res) => {
-  
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-
-  res.render('login');
-});
-
-// registration page
-router.get('/register', (req, res) => {
-  res.render('register')
-})
-
-//user dashboard
-router.get('/dashboard', (req, res) => {
-  res.render('dashboard')
-})
-
-module.exports = router;

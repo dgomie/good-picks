@@ -25,6 +25,13 @@
 
 
 ## Contributions
+https://flowbite.com/docs/components/navbar/
+https://tailwindui.com/components/application-ui/forms/sign-in-forms
+https://flowbite.com/blocks/marketing/register/
+Photo by <a href="https://unsplash.com/@introspectivedsgn?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Erik Mclean</a> on <a href="https://unsplash.com/photos/yellow-round-plastic-round-table-9y1cTVKe1IY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+Photo by <a href="https://unsplash.com/@photowolf?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Joshua Olsen</a> on <a href="https://unsplash.com/photos/books-on-brown-wooden-shelf-fpxIIZewZBo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  
+  
 
 
 ## Tests
