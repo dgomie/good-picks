@@ -3,25 +3,31 @@ const { User } = require('../models');
 const withAuth = require('../utils/auth');
 
 
-router.get('/', withAuth, async (req, res) => {
-  try {
-    const userData = await User.findAll({
-      attributes: { exclude: ['password'] },
-      order: [['name', 'ASC']],
-    });
+// homepage
+router.get('/', (req, res) => {
+  res.render('homepage')
+})
 
-    const users = userData.map((project) => project.get({ plain: true }));
+// router.get('/', withAuth, async (req, res) => {
+//   try {
+//     const userData = await User.findAll({
+//       attributes: { exclude: ['password'] },
+//       order: [['name', 'ASC']],
+//     });
 
-    res.render('homepage', {
-      users,
+//     const users = userData.map((project) => project.get({ plain: true }));
+
+//     res.render('homepage', {
+//       users,
       
-      logged_in: req.session.logged_in,
-    });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+//       logged_in: req.session.logged_in,
+//     });
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
+// login page
 router.get('/login', (req, res) => {
   
   if (req.session.logged_in) {
@@ -31,5 +37,15 @@ router.get('/login', (req, res) => {
 
   res.render('login');
 });
+
+// registration page
+router.get('/register', (req, res) => {
+  res.render('register')
+})
+
+//user dashboard
+router.get('/dashboard', (req, res) => {
+  res.render('dashboard')
+})
 
 module.exports = router;
