@@ -46,4 +46,49 @@ router.post('/logout', (req, res) => {
   }
 });
 
+
+// get all users minus their passwords
+router.get("/", async (req, res) => {
+  try{
+    const userData = await User.findAll({
+      attributes: {
+        exclude: ["password"]
+      },
+      order: [["name", "asc"]]});
+    res.status(200).json(userData);
+
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
+
+router.get("/", async (req, res) => {
+  try{
+    const userData = await User.findAll({
+      attributes: {
+        exclude: ["password"]
+      },
+      order: [["name", "asc"]]});
+    res.status(200).json(userData);
+
+  } catch (err) {
+    res.status(500).json(err)
+  }
+})
+
+// create new user
+router.post('/', async (req, res) => {
+  try {
+    const newUser = await User.create({
+      name: req.body.username,
+      email: req.body.email,
+      password: req.body.password
+    });
+    res.status(200).json(newUser);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+
 module.exports = router;
