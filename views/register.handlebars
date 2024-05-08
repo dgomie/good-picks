@@ -21,12 +21,15 @@
         <label for="password">Password:</label>
         <input class="form-input" type="password" id="password-register" value="{{password-register}}"/>
     </div>
-    <div class="form-group" type="password" id="confirm-password" value="{{confirm-password}}" />
     <div class="form-group">
-        <div>Already a user? Login
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" value="{{confirm-password}}" />
+    </div> 
+    <div class="form-group">
+        <div>Already a user?
             <!-- remove <a> and code into js 
                 -->
-            <button class="btn btn-primary" type="submit"><a href="/login">Here</a></button>
+            <button class="btn btn-primary" type="submit"><a href="/login">Login</a></button>
             </div>
     </div>
 </form>
