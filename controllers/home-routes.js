@@ -38,6 +38,10 @@ router.get('/logout', (req, res) => {
   res.render('logout')
 })
 
+router.get('/charts', (req, res) => {
+  res.render('charts')
+})
+
 module.exports = router;
 
 
