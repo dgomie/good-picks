@@ -48,4 +48,9 @@ router.get('/dashboard', (req, res) => {
   res.render('dashboard')
 })
 
+// user profile
+router.get('/profile', (req, res) => {
+  res.render('profile')
+})
+
 module.exports = router;
