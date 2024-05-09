@@ -39,6 +39,7 @@ router.post("/login", async (req, res) => {
 router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
+      res.clearCookie('connect.sid'); // replace 'session-cookie-name' with the name of your session cookie
       console.log('session ended')
       res.status(204).end();
     });
