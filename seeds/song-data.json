@@ -1,0 +1,27 @@
+[
+    {
+      "title": "Song 1",
+      "artist": "artist 1",
+      "genre": "genre 1",
+      "rating": 4
+    },
+    {
+        "title": "Song 2",
+        "artist": "artist 2",
+        "genre": "genre 2",
+        "rating": 5
+      },
+      {
+        "title": "Song 3",
+        "artist": "artist 3",
+        "genre": "genre 3",
+        "rating": 1
+      },
+      {
+        "title": "Song 4",
+        "artist": "artist 2",
+        "genre": "genre 3",
+        "rating": 1
+      }
+  ]
+  
