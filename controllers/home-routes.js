@@ -26,7 +26,9 @@ router.get('/login', (req, res) => {
 
 // registration page
 router.get('/register', (req, res) => {
-  res.render('register')
+  res.render('register', {
+    title: 'Register'
+  })
 })
 
 //user dashboard
