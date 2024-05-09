@@ -101,3 +101,5 @@ router.get("/top5", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+module.exports = router;
