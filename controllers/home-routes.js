@@ -42,6 +42,10 @@ router.get('/charts', (req, res) => {
   res.render('charts')
 })
 
+router.get('/music', (req, res) => {
+  res.render('music')
+})
+
 module.exports = router;
 
 
