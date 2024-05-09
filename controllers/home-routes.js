@@ -5,7 +5,9 @@ const withAuth = require('../utils/auth');
 
 // homepage
 router.get('/', (req, res) => {
-  res.render('homepage')
+  res.render('homepage', {
+    title: 'Good Picks'
+  })
 })
 
 // login page
@@ -16,7 +18,10 @@ router.get('/login', (req, res) => {
     return;
   }
 
-  res.render('login');
+  res.render('login', {
+    title: 'Login'
+  
+  });
 });
 
 // registration page
@@ -26,12 +31,16 @@ router.get('/register', (req, res) => {
 
 //user dashboard
 router.get('/dashboard', withAuth, (req, res) => {
-  res.render('dashboard')
+  res.render('dashboard', {
+    title: 'Dashboard'
+  })
 })
 
 // user profile
 router.get('/profile', withAuth, (req, res) => {
-  res.render('profile')
+  res.render('profile', {
+    title: 'Profile'
+  })
 })
 
 router.get('/logout', (req, res) => {
@@ -39,7 +48,9 @@ router.get('/logout', (req, res) => {
 })
 
 router.get('/charts', (req, res) => {
-  res.render('charts')
+  res.render('charts', {
+    title: 'Charts'
+  })
 })
 
 router.get('/music', (req, res) => {
