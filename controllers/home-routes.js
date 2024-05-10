@@ -44,10 +44,7 @@ router.get('/dashboard', withAuth, (req, res) => {
   console.log(req.session)
   res.render('dashboard', {
     title: 'Dashboard',
-    loggedIn: req.session.loggedIn,
-    name: req.session.username,
-    profileImg: req.session.profileId,
-    username: req.session.username
+    ...req.session
     //  don't know if this will work but hey, it's worth a shot. It didn't work
     // top5: req.session.user.top5
     // don't know if this is needed
@@ -63,11 +60,7 @@ router.get('/dashboard', withAuth, (req, res) => {
 router.get('/profile', withAuth, (req, res) => {
   res.render('profile', {
     title: 'Profile',
-    loggedIn: req.session.loggedIn,
-    name: req.session.username,
-    profileImg: req.session.profileId,
-    //  don't know if this is needed
-    username: req.session.username,
+    ...req.session
   })
 })
 
@@ -78,10 +71,7 @@ router.get('/logout', (req, res) => {
 router.get('/charts', (req, res) => {
   res.render('charts', {
     title: 'Charts',
-    loggedIn: req.session.loggedIn,
-    name: req.session.username,
-    profileImg: req.session.profileId,
-    username: req.session.username
+    ...req.session
     // don't know if this is needed ro if will work
     // artist: req.session.artist,
   })

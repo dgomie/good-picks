@@ -33,19 +33,16 @@ User.init(
                 len: [8],
             },
         },
-        profileId: {
+        profileImg: {
             type: DataTypes.STRING,
             allowNull: true,
-            validate: {
-                isAlpha: true,
-            },
         },
     },
     {
         hooks: {
             beforeCreate: async (newUserData) => {
                 newUserData.password = await bcrypt.hash(newUserData.password, 10);
-                newUserData.profileId = newUserData.name[0].toLowerCase();
+                newUserData.profileImg = newUserData.name[0].toLowerCase();
                 return newUserData;
             },
         },

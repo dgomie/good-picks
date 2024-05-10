@@ -26,7 +26,8 @@ router.post("/login", async (req, res) => {
       req.session.userId = userData.id;
       req.session.loggedIn = true;
       req.session.username = userData.name;
-      req.session.profileId = userData.profileId;
+      req.session.profileImg = userData.profileImg;
+      req.session.email = userData.email;
       
       res.json({ user: userData, message: "You are now logged in!" });
     });
@@ -77,7 +78,8 @@ router.post("/", async (req, res) => {
       req.session.userId = userData.id;
       req.session.loggedIn = true;
       req.session.username = userData.name;
-      req.session.profileId = userData.profileId;
+      req.session.profileImg = userData.profileImg;
+      req.session.email = userData.email;
 
       res.status(200).json(newUser);
     });
