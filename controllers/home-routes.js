@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Music } = require('../models');
 const withAuth = require('../utils/auth');
 
 
@@ -32,16 +32,27 @@ router.get('/register', (req, res) => {
 })
 
 //user dashboard
+// put back withAuth
 router.get('/dashboard', withAuth, (req, res) => {
   res.render('dashboard', {
-    title: 'Dashboard'
+    title: 'Dashboard',
+    //  don't know if this will work but hey, it's worth a shot. It didn't work
+    // top5: req.session.user.top5
+    // don't know if this is needed
+    // username: req.session.name,
+    
+    // just adding to add as a possible future goal, don't know if it will work
+    // isPremiumUser: false
   })
 })
 
 // user profile
+// put back withAuth
 router.get('/profile', withAuth, (req, res) => {
   res.render('profile', {
-    title: 'Profile'
+    title: 'Profile',
+    //  don't know if this is needed
+    // username: req.session.name,
   })
 })
 
@@ -51,7 +62,9 @@ router.get('/logout', (req, res) => {
 
 router.get('/charts', (req, res) => {
   res.render('charts', {
-    title: 'Charts'
+    title: 'Charts',
+    // don't know if this is needed ro if will work
+    // artist: req.session.artist,
   })
 })
 
