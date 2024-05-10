@@ -25,13 +25,10 @@ router.post("/login", async (req, res) => {
     req.session.save(() => {
       req.session.userId = userData.id;
       req.session.loggedIn = true;
-      req.session.username = userData.name
-
-      res.render('main', {
-        loggedIn: req.session.loggedIn,
-        name: req.session.username
-      });
-
+      req.session.username = userData.name;
+      req.session.profileImg = userData.profileImg;
+      req.session.email = userData.email;
+      
       res.json({ user: userData, message: "You are now logged in!" });
     });
   } catch (err) {
@@ -75,14 +72,14 @@ router.post("/", async (req, res) => {
       password: req.body.password,
     });
 
+    const userData = await User.findOne({ where: { email: req.body.email } });
+
     req.session.save(() => {
+      req.session.userId = userData.id;
       req.session.loggedIn = true;
-      req.session.username = newUser.name;
-      
-      res.render('main', {
-        loggedIn: req.session.loggedIn,
-        username: req.session.username,
-      });
+      req.session.username = userData.name;
+      req.session.profileImg = userData.profileImg;
+      req.session.email = userData.email;
 
       res.status(200).json(newUser);
     });

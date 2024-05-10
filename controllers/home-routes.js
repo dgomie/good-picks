@@ -5,6 +5,11 @@ const withAuth = require('../utils/auth');
 
 // homepage
 router.get('/', (req, res) => {
+  if (req.session.loggedIn) {
+    res.redirect('/dashboard');
+    return;
+  }
+
   res.render('homepage', {
     title: 'Good Picks'
   })
@@ -13,13 +18,14 @@ router.get('/', (req, res) => {
 // login page
 router.get('/login', (req, res) => {
   
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     res.redirect('/dashboard');
     return;
   }
 
   res.render('login', {
-    title: 'Login'
+    title: 'Login',
+    loggedIn: req.session.loggedIn,
   
   });
 });
@@ -27,7 +33,8 @@ router.get('/login', (req, res) => {
 // registration page
 router.get('/register', (req, res) => {
   res.render('register', {
-    title: 'Register'
+    title: 'Register',
+    loggedIn: req.session.loggedIn,
   })
 })
 
@@ -37,6 +44,7 @@ router.get('/dashboard', withAuth, (req, res) => {
   console.log(req.session)
   res.render('dashboard', {
     title: 'Dashboard',
+    ...req.session
     //  don't know if this will work but hey, it's worth a shot. It didn't work
     // top5: req.session.user.top5
     // don't know if this is needed
@@ -52,8 +60,7 @@ router.get('/dashboard', withAuth, (req, res) => {
 router.get('/profile', withAuth, (req, res) => {
   res.render('profile', {
     title: 'Profile',
-    //  don't know if this is needed
-    username: req.session.username,
+    ...req.session
   })
 })
 
@@ -64,6 +71,7 @@ router.get('/logout', (req, res) => {
 router.get('/charts', (req, res) => {
   res.render('charts', {
     title: 'Charts',
+    ...req.session
     // don't know if this is needed ro if will work
     // artist: req.session.artist,
   })
