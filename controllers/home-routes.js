@@ -33,7 +33,7 @@ router.get('/register', (req, res) => {
 
 //user dashboard
 // put back withAuth
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', withAuth, (req, res) => {
   res.render('dashboard', {
     title: 'Dashboard',
     //  don't know if this will work but hey, it's worth a shot. It didn't work
@@ -48,7 +48,7 @@ router.get('/dashboard', (req, res) => {
 
 // user profile
 // put back withAuth
-router.get('/profile', (req, res) => {
+router.get('/profile', withAuth, (req, res) => {
   res.render('profile', {
     title: 'Profile',
     //  don't know if this is needed
