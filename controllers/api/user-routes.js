@@ -28,14 +28,6 @@ router.post("/login", async (req, res) => {
       req.session.username = userData.name;
       req.session.profileId = userData.profileId;
       
-
-      res.render('main', {
-        loggedIn: req.session.loggedIn,
-        name: req.session.username,
-        profileImg: req.session.profileId,
-        username: req.session.username
-      });
-
       res.json({ user: userData, message: "You are now logged in!" });
     });
   } catch (err) {
