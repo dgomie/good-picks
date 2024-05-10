@@ -34,6 +34,7 @@ router.get('/register', (req, res) => {
 //user dashboard
 // put back withAuth
 router.get('/dashboard', withAuth, (req, res) => {
+  console.log(req.session)
   res.render('dashboard', {
     title: 'Dashboard',
     //  don't know if this will work but hey, it's worth a shot. It didn't work
