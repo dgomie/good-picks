@@ -1,1 +1,26 @@
-<h2 class="p-5"><strong>Welcome {{ username }}</strong></h2>
+<h2 class="p-5 text-center"><strong>Welcome {{ username }}</strong></h2>
+<div>
+    <div class="flex">
+        <aside class="flex sidebar w-1/4">
+            <section class="box-border h-40 p-4 border-2 text-left border-2 border-yellow-200 border-opacity-100 mb-8 rounded bg-yellow-50 ml-8 h-full shadow-lg">Your Current Top 5:</section>
+            <ol class="top5-list">
+                {{!-- might need to change top5 to something else --}}
+                {{#each top5}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ol>
+        </aside>
+        {{!-- commenting out because it was already done for profile, thinking we could mimic spotify's dashboard
+                Example: on the lefthand side, you have your top 5 artists and songs, and on the right, a recommnndation for a new artist or song. and in the middle, a guide of what the website has to offer or random user data
+         --}}
+        {{!-- <div class="flex flex-col w-3/4 ml-8">
+            <div class="text-center border-2 border-yellow-200 border-opacity-100 p-4 mb-8 rounded bg-yellow-50 shadow-lg">Favorite artists:
+                <ul class="artist-list">
+                </ul>
+            </div>
+            <div class="text-center border-2 border-yellow-200 border-opacity-100 p-4 mb-8 rounded bg-yellow-50 shadow-lg">Favorite songs:
+                <ul class="song-list">
+                </ul>
+            </div>
+        </div> --}}
+    </div>
