@@ -53,7 +53,7 @@ router.get('/profile', withAuth, (req, res) => {
   res.render('profile', {
     title: 'Profile',
     //  don't know if this is needed
-    // username: req.session.name,
+    username: req.session.username,
   })
 })
 
