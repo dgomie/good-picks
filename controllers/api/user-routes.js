@@ -71,15 +71,13 @@ router.post("/", async (req, res) => {
       password: req.body.password,
     });
 
+    const userData = await User.findOne({ where: { email: req.body.email } });
+
     req.session.save(() => {
+      req.session.userId = userData.id;
       req.session.loggedIn = true;
-      req.session.username = newUser.name;
-      
-      res.render('main', {
-        loggedIn: req.session.loggedIn,
-        username: req.session.username,
-        profilePic: req.session.profileId
-      });
+      req.session.username = userData.name;
+      req.session.profileId = userData.profileId;
 
       res.status(200).json(newUser);
     });
