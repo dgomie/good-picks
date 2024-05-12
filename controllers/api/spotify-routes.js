@@ -43,12 +43,26 @@ router.get('/callback', (req, res) => {
         spotifyApi.setAccessToken(accessToken);
         spotifyApi.setRefreshToken(refreshToken);
 
+        req.session.spotAccessToken = accessToken;
+        req.session.spotRefreshToken = refreshToken
+
+        req.session.save(err => {
+            if (err) {
+              // handle error
+              res.status(500).json(err);
+            } else {
+                res.redirect('/dashboard');
+            }
+          });
+     
+
+        // TODO: Remove console.logs
         // Logging tokens can be a security risk; this should be avoided in production.
-        console.log('The access token is ' + accessToken);
-        console.log('The refresh token is ' + refreshToken);
+        // console.log('The access token is ' + accessToken);
+        // console.log('The refresh token is ' + refreshToken);
 
         // Send a success message to the user.
-        res.redirect('/dashboard');
+        // res.redirect('/dashboard');
 
         // Refresh the access token periodically before it expires.
         setInterval(async () => {
@@ -94,5 +108,26 @@ router.get('/play', (req, res) => {
         res.send('Error occurred during playback');
     });
 });
+
+router.get('/artist-image', async (req, res) => {
+    const artistImgEndpoint = 'https://api.spotify.com/v1/artists/4LLpKhyESsyAXpc4laK94U';
+    const token = req.session.spotAccessToken; // replace with your actual token
+    const response = await fetch(artistImgEndpoint, {
+    method: 'GET',
+    headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        res.send(data)
+    } else {
+        console.error('Failed to fetch artist image:', response.status, response.statusText);
+        res.send(`Error: ${response.status, response.statusText}`)
+    }
+})
 
 module.exports = router;
