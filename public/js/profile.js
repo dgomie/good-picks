@@ -1,4 +1,4 @@
-let artistArray = ["Rainbow Kitten Surprise", "King Gizzard and the Lizard Wizard", "Dominic Fike", "Kendrick Lamar"]
+let artistArray = ["The Beatles", "Dominic Fike", "Kendrick Lamar"]
 
 async function fetchArtistImage(artistName) {
   const response = await fetch(`/api/spotify/artist-image/${artistName}`, {
@@ -21,7 +21,7 @@ async function setArtistImage(artistName) {
     const artistList = document.querySelector(".artist-list");
     const imageLink = await fetchArtistImage(artistName);
     const listItem = document.createElement('li');
-    listItem.innerHTML = `<img src=${imageLink}>`;
+    listItem.innerHTML = `<img src=${imageLink} width=300>`;
     artistList.appendChild(listItem);
   }
   
