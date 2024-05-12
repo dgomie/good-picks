@@ -1,10 +1,13 @@
 <div class="flex">
     <!-- change username to correct -->
-    <div class="profile-user text-left mb-8 ml-8 w-3/4"><strong>{{log username}}{{username}}'s Profile</strong></div>
+    <div class="profile-picture ml-8">
+        <img class="w-12 h-12 mb-4 ml-12 rounded-full" src="/images/alphabet/{{profileImg}}-letter.512x512.png" alt="user photo" onerror="this.onerror=null; this.src='/images/alphabet/default-letter.512x512.png';">
+    </div>
 </div>
+<div class="profile-user text-left mb-8 ml-14 w-3/4"><strong>{{log username}}{{username}}'s Profile</strong></div>
 <div class="flex">
     <aside class="flex sidebar w-1/4">
-        <section class="box-border h-40 p-4 border-2 text-left border-2 border-yellow-200 border-opacity-100 mb-8 rounded bg-yellow-50 ml-8 h-full shadow-lg">Currently Listening to:</section>
+        <section class="box-border h-40 p-4 border-2 text-left border-2 border-yellow-200 border-opacity-100 mb-8 rounded bg-yellow-50 ml-8 h-full shadow-lg">Recently Listened to:</section>
     </aside>
     <div class="flex flex-col w-3/4 ml-8">
         <div class="text-center border-2 border-yellow-200 border-opacity-100 p-4 mb-8 rounded bg-yellow-50 shadow-lg">Favorite artists:
@@ -17,3 +20,4 @@
         </div>
     </div>
 </div>
+<script src="profile.js"></script>
