@@ -11,7 +11,7 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace('/dashboard');
+      document.location.replace('/api/spotify/login');
     } else {
       alert('Failed to log in.');
     }

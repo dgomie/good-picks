@@ -22,18 +22,23 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    req.session.save(() => {
-      req.session.userId = userData.id;
-      req.session.loggedIn = true;
-      req.session.username = userData.name;
-      req.session.profileImg = userData.profileImg;
-      req.session.email = userData.email;
-      
+  req.session.userId = userData.id;
+  req.session.loggedIn = true;
+  req.session.username = userData.name;
+  req.session.profileImg = userData.profileImg;
+  req.session.email = userData.email;
+
+  await req.session.save(err => {
+    if (err) {
+      // handle error
+      res.status(500).json(err);
+    } else {
       res.json({ user: userData, message: "You are now logged in!" });
-    });
-  } catch (err) {
-    res.status(400).json(err);
-  }
+    }
+  });
+} catch (err) {
+  res.status(400).json(err);
+}
 });
 
 router.post("/logout", (req, res) => {
