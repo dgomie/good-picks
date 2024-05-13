@@ -21,6 +21,8 @@ const signupFormHandler = async (event) => {
       } else {
         alert('Failed to sign up.');
       }
+    } else {
+      alert('passwords must match');
     }
   }};
 
