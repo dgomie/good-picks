@@ -19,8 +19,10 @@ const signupFormHandler = async (event) => {
       } else {
         alert('Failed to sign up.');
       }
-    }
-  };
+    } 
+    }else {
+      alert('passwords must match');
+  }};
 
   document
   .querySelector('#register-form')
