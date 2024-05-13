@@ -25,8 +25,7 @@ router.get('/login', (req, res) => {
 
   res.render('login', {
     title: 'Login',
-    loggedIn: req.session.loggedIn,
-  
+    loggedIn: req.session.loggedIn,  
   });
 });
 
@@ -82,25 +81,3 @@ router.get('/music', (req, res) => {
 })
 
 module.exports = router;
-
-
-
-
-// router.get('/', withAuth, async (req, res) => {
-//   try {
-//     const userData = await User.findAll({
-//       attributes: { exclude: ['password'] },
-//       order: [['name', 'ASC']],
-//     });
-
-//     const users = userData.map((project) => project.get({ plain: true }));
-
-//     res.render('homepage', {
-//       users,
-      
-//       logged_in: req.session.logged_in,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
