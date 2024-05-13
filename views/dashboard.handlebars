@@ -1,6 +1,8 @@
 <div class="container max-w-full">
+    <div class="header border-b-2 ml-12">
     <h2 class="p-5 text-center"><strong>Welcome {{ username }}</strong></h2>
-    <div class="public-feed flex overflow-y-scroll justify-center max-w-full pb-4 pr-2.5 ml-12">
+    </div>
+    <div class="public-feed flex overflow-y-scroll justify-center max-w-full pb-4 pr-2.5 ml-12 border-b-8">
         <div class="make-post">
             <form class="flex flex-row">
                 <div class="post-input flex p-5 focus:ring-2 focus:ring-blue-600">
@@ -13,7 +15,15 @@
             </form>
         </div>
     </div>
+    <div class="public-posts border-b-2 ml-12 p-5">
+        {{!-- add in users profile picture and add an each to get other users posts --}}
+        <ul class="flex justify-center">
+            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laudantium, minima magni vitae itaque reprehenderit. Iure, saepe nam nihil fugit assumenda soluta explicabo vitae! Eveniet doloribus placeat nulla commodi earum.</li>
+        </ul>
+    </div>
 </div>
+
+
 {{!-- <div>
     <div class="flex">
         <aside class="flex sidebar w-1/4">
@@ -21,28 +31,10 @@
                 class="box-border h-40 p-4 border-2 text-left border-2 border-yellow-200 border-opacity-100 mb-8 rounded bg-yellow-50 ml-8 h-full shadow-lg">
                 Your Current Top 5:</section>
             <ol class="top5-list">
-                {{!-- might need to change top5 to something else --}}
                 {{#each top5}}
                 <li>{{this}}</li>
                 {{/each}}
             </ol>
         </aside>
-    </div>
-</div> --}}
-
-{{!-- commenting out because it was already done for profile, thinking we could mimic spotify's dashboard
-Example: on the lefthand side, you have your top 5 artists and songs, and on the right, a recommnndation for a new
-artist or song. and in the middle, a guide of what the website has to offer or random user data
---}}
-{{!-- <div class="flex flex-col w-3/4 ml-8">
-    <div class="text-center border-2 border-yellow-200 border-opacity-100 p-4 mb-8 rounded bg-yellow-50 shadow-lg">
-        Favorite artists:
-        <ul class="artist-list">
-        </ul>
-    </div>
-    <div class="text-center border-2 border-yellow-200 border-opacity-100 p-4 mb-8 rounded bg-yellow-50 shadow-lg">
-        Favorite songs:
-        <ul class="song-list">
-        </ul>
     </div>
 </div> --}}
