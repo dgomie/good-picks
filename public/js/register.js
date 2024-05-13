@@ -4,11 +4,9 @@ const signupFormHandler = async (event) => {
     const username = document.querySelector('#username-register').value.trim();
     const email = document.querySelector('#email-register').value.trim();
     const password = document.querySelector('#password-register').value.trim();
-    const passwordConfirm = document.querySelector('#password-confirm').value.trim();
 
     console.log(username, email, password)
-
-    if (password === passwordConfirm) {
+  
     if (username && email && password) {
       const response = await fetch('/api/users', {
         method: 'POST',
@@ -21,10 +19,8 @@ const signupFormHandler = async (event) => {
       } else {
         alert('Failed to sign up.');
       }
-    } else {
-      alert('passwords must match');
     }
-  }};
+  };
 
   document
   .querySelector('#register-form')
