@@ -24,7 +24,9 @@ const signupFormHandler = async (event) => {
       }
     } else {
       alert('passwords must match');
-  }};
+    }
+  }
+};
 
 document
   .querySelector('#register-form')
