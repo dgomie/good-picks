@@ -25,8 +25,7 @@ router.get('/login', (req, res) => {
 
   res.render('login', {
     title: 'Login',
-    loggedIn: req.session.loggedIn,
-  
+    loggedIn: req.session.loggedIn,  
   });
 });
 

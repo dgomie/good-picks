@@ -102,4 +102,32 @@ router.get("/top5", async (req, res) => {
   }
 });
 
+// route to delete an artist
+router.delete("/artist/:artist/:id", async (req, res) => {
+try {
+  const musicData = await Music.findOne({ where: { artist: req.params.artist, id: req.params.id } });
+  if(!musicData){
+    res.status(404).json({ message: 'No artist with this id!' });
+    return;
+  }
+  res.status(200).json(musicData)
+}catch (err) {
+  res.status(500).json(err);
+}
+});
+
+// route to delete a song
+router.delete("/song/:song/:id", async (req, res) => {
+  try {
+    const musicData = await Music.findOne({ where: { artist: req.params.artist, id: req.params.id } });
+    if(!musicData){
+      res.status(404).json({ message: 'No song with this id!' });
+      return;
+    }
+    res.status(200).json(musicData)
+  }catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

@@ -89,7 +89,21 @@ router.post("/", async (req, res) => {
       res.status(200).json(newUser);
     });
   } catch (err) {
+    // add response for why error was caused: user already exists/ email already registered
     res.status(400).json(err);
+  }
+});
+
+// delete user
+router.delete("/:id", async (req, res) => {
+  try {
+    const deleteUser = await User.destroy({
+      where: {
+        id: req.params.id,
+      }
+    });
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
