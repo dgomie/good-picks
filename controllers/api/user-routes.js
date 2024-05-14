@@ -89,6 +89,7 @@ router.post("/", async (req, res) => {
       res.status(200).json(newUser);
     });
   } catch (err) {
+    // add response for why error was caused: user already exists/ email already registered
     res.status(400).json(err);
   }
 });
