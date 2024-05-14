@@ -38,8 +38,8 @@ router.get('/register', (req, res) => {
 })
 
 //user dashboard
-// put back withAuth
-router.get('/dashboard', withAuth, (req, res) => {
+// TODO: put back withAuth
+router.get('/dashboard', (req, res) => {
   console.log(req.session)
   res.render('dashboard', {
     title: 'Dashboard',
@@ -55,8 +55,8 @@ router.get('/dashboard', withAuth, (req, res) => {
 })
 
 // user profile
-// put back withAuth
-router.get('/profile', withAuth, (req, res) => {
+// TODO: put back withAuth
+router.get('/profile', (req, res) => {
   res.render('profile', {
     title: 'Profile',
     ...req.session
