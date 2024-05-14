@@ -1,27 +1,37 @@
 [
-    {
-      "title": "Song 1",
-      "artist": "artist 1",
-      "genre": "genre 1",
-      "rating": 4
-    },
-    {
-        "title": "Song 2",
-        "artist": "artist 2",
-        "genre": "genre 2",
-        "rating": 5
-      },
-      {
-        "title": "Song 3",
-        "artist": "artist 3",
-        "genre": "genre 3",
-        "rating": 1
-      },
-      {
-        "title": "Song 4",
-        "artist": "artist 2",
-        "genre": "genre 3",
-        "rating": 1
-      }
-  ]
-  
+  {
+    "title": "Mona Lisa",
+    "artist_id": 1,
+    "album": "Sunburn",
+    "genre": "genre 1",
+    "albumImg": "https://i.scdn.co/image/ab67616d0000b2730fb08616c78d44ceb4c8d061"
+  },
+  {
+    "title": "Dunno",
+    "artist_id": 2,
+    "album": "Swimming",
+    "genre": "genre 2",
+    "albumImg": "https://i.scdn.co/image/ab67616d0000b273175c577a61aa13d4fb4b6534"
+  },
+  {
+    "title": "Nightrider",
+    "artist_id": 3,
+    "album": "What Kinda Music",
+    "genre": "genre 1",
+    "albumImg": "https://i.scdn.co/image/ab67616d0000b273bd93bbf0c3df5e0242b84831"
+  },
+  {
+    "title": "Boogieman Sam",
+    "artist_id": 4,
+    "album": "Fishing for Fishies",
+    "genre": "genre 3",
+    "albumImg": "https://i.scdn.co/image/ab67616d0000b273adc69b1d4a910591f079fb0b"
+  },
+  {
+    "title": "Come Down",
+    "artist_id": 5,
+    "album": "Malibu",
+    "genre": "genre 1",
+    "albumImg": "https://i.scdn.co/image/ab67616d0000b273f8e77075414234fd77fce32b"
+  }
+]

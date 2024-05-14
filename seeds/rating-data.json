@@ -5,23 +5,28 @@
         "rating": 4
     },
     {
-        "user_id": 1,
+        "user_id": 3,
         "music_id": 1,
+        "rating": 2
+    },
+    {
+        "user_id": 2,
+        "music_id": 3,
         "rating": 4
     },
     {
-        "user_id": 1,
-        "music_id": 1,
-        "rating": 4
+        "user_id": 6,
+        "music_id": 2,
+        "rating": 1
     },
     {
-        "user_id": 1,
-        "music_id": 1,
-        "rating": 4
+        "user_id": 5,
+        "music_id": 4,
+        "rating": 2
     },
     {
-        "user_id": 1,
-        "music_id": 1,
-        "rating": 4
+        "user_id": 5,
+        "music_id": 5,
+        "rating": 5
     }
 ]
