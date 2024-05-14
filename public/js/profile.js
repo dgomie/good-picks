@@ -32,4 +32,22 @@ async function setArtistImage(artistName) {
   artistArray.forEach((artist) => {
     setArtistImage(artist);
   });
+
+  // delete an artist
+  async function deleteArtist(){
+    const response = await fetch(`/api/music/artist/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
   
+
+  // delete a song
+  async function deleteSong(){
+    const response = await fetch(`/api/music/song/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // add event listener for deleting a song and artist
