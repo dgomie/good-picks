@@ -4,7 +4,7 @@
     class="relative flex items-center gap-4 pt-0 pb-8 mx-0 mt-4 overflow-hidden text-gray-700 shadow-none rounded-xl bg-clip-border">
     {{!-- user profile image --}}
     <img
-      src="/images/alphabet/{{this.user.profileImg}}-letter.512x512.png"
+      src="/images/alphabet/{{this.user.profileImg}}-letter.512x512.png" 
       alt=""
       class="relative inline-block h-[48px] w-[48px] !rounded-full  object-cover object-center ml-1" />
     <div class="flex w-full flex-col gap-0.5">
@@ -36,5 +36,4 @@
     {{!-- album art --}}
   <img src="{{{this.music.albumImg}}}" alt="{{this.music.album}} album art by {{this.music.artist.name}}" onerror="this.onerror=null; this.src='/images/missing-album.jpg';">
   </div>
-</div>
-
+</div>  

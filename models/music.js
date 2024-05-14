@@ -38,6 +38,7 @@ Music.init(
       defaultValue: DataTypes.NOW,
     },
   },
+
   {
     // TODO: make a beforeCreate that pulls the album art url and sets it to albumImg
     // hooks: {

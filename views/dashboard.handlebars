@@ -21,15 +21,17 @@
             </form>
         </div>
     </div>
-    <div class="public-posts border-b-2 ml-12 p-5">
-        {{!-- add in users profile picture and add an each to get other users posts --}}
-        <ul class="flex justify-center">
-            <li>{{> songcard}}</li>
-        </ul>
-    </div>
+  <div class="public-posts border-b-2 ml-12 p-5">
+    {{!-- add in users profile picture and add an each to get other users posts --}}
+    <ul id="feed" class="flex flex-col items-center">
+        {{#each ratings}}
+        {{> songcard}}
+        {{/each}}
+    </ul>
+</div>
 </div>
 
-<script src="/js/dashboard.js"></script>
+{{!-- <script src="/js/dashboard.js"></script> --}}
 
 
 {{!-- <div>

@@ -5,8 +5,21 @@ const { Rating } = require('../../models');
 // route to get all ratings
 router.get("/", async (req, res) => {
   try {
-    const ratingData = await Rating.findAll();
-    res.status(200).json(ratingData);
+    const ratingData = await Rating.findAll({
+      include: [
+        {
+          model: user,
+          attributes: ["name", "profileImg"],
+        },
+        {
+          model: music,
+          attributes: ["song", "artist", "album"],
+        }
+      ],
+    });
+    const ratings = ratingData.map((rating) => rating.get({ plain: true }));
+    console.log(ratings)
+    res.status(200).send(ratings);
   } catch (err) {
     res.status(500).json(err);
   }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
+
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
   <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="/images/goodpicks-logo.png" class="h-10" alt="Good Picks Logo" />
       <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">GoodPicks</span>
   </a>
+ 
   <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
     {{#if loggedIn}}
       <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
@@ -42,6 +45,7 @@
         </svg>
     </button>
   </div>
+ 
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
     <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       {{#unless loggedIn}}
@@ -65,6 +69,7 @@
   </div>
 </nav>
 <body class="bg-slate-600 text-white">
+  
   <main class="container container-fluid mt-5">
     {{{ body }}}
   </main>
@@ -72,5 +77,7 @@
  {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
+ 
 </body>
+
 </html>

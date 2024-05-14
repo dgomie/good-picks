@@ -38,6 +38,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    favArtists: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     hooks: {

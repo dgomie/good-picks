@@ -1,4 +1,5 @@
 const Handlebars = require('handlebars');
+
 Handlebars.registerHelper('generateStars', function(rating) {
     let stars = '';
     for (let i = 0; i < rating; i++) {
@@ -9,9 +10,11 @@ Handlebars.registerHelper('generateStars', function(rating) {
     }
     return new Handlebars.SafeString(stars);
 });
+
 Handlebars.registerHelper('renderAlbumImages', function(albumImages) {
     const albumImagesHtml = albumImages.map(imageUrl => {
       return `<img src="${imageUrl}" alt="Album Image">`;
     }).join('');
+  
     return new Handlebars.SafeString(albumImagesHtml);
   });
