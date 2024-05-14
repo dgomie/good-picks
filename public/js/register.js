@@ -1,29 +1,34 @@
 const signupFormHandler = async (event) => {
-    event.preventDefault();
-  
-    const username = document.querySelector('#username-register').value.trim();
-    const email = document.querySelector('#email-register').value.trim();
-    const password = document.querySelector('#password-register').value.trim();
+  event.preventDefault();
 
-    console.log(username, email, password)
-  
+  const username = document.querySelector("#username-register").value.trim();
+  const email = document.querySelector("#email-register").value.trim();
+  const password = document.querySelector("#password-register").value.trim();
+  const passwordConfirm = document
+    .querySelector("#password-confirm")
+    .value.trim();
+
+  console.log(username, email, password);
+
+  if (password === passwordConfirm) {
     if (username && email && password) {
-      const response = await fetch('/api/users', {
-        method: 'POST',
+      const response = await fetch("/api/users", {
+        method: "POST",
         body: JSON.stringify({ username, email, password }),
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type": "application/json" },
       });
-  
-      if (response.ok) {
-        document.location.replace('/dashboard');
-      } else {
-        alert('Failed to sign up.');
-      }
-    } 
-    }else {
-      alert('passwords must match');
-  }};
 
-  document
-  .querySelector('#register-form')
-  .addEventListener('click', signupFormHandler);
+      if (response.ok) {
+        document.location.replace('/api/spotify/login');
+      } else {
+        alert("Failed to sign up.");
+      }
+    }
+  } else {
+    alert("passwords must match");
+  };
+};
+
+document
+  .querySelector("#register-form")
+  .addEventListener("click", signupFormHandler);
