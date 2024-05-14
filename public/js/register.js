@@ -1,11 +1,14 @@
 const signupFormHandler = async (event) => {
-    event.preventDefault();
-  
-    const username = document.querySelector('#username-register').value.trim();
-    const email = document.querySelector('#email-register').value.trim();
-    const password = document.querySelector('#password-register').value.trim();
+  event.preventDefault();
 
-    console.log(username, email, password)
+  const username = document.querySelector('#username-register').value.trim();
+  const email = document.querySelector('#email-register').value.trim();
+  const password = document.querySelector('#password-register').value.trim();
+  const passwordConfirm = document.querySelector('#password-confirm').value.trim();
+
+  console.log(username, email, password)
+
+  if (password === passwordConfirm) {
   
     if (username && email && password) {
       const response = await fetch('/api/users', {
@@ -13,7 +16,7 @@ const signupFormHandler = async (event) => {
         body: JSON.stringify({ username, email, password }),
         headers: { 'Content-Type': 'application/json' },
       });
-  
+
       if (response.ok) {
         document.location.replace('/dashboard');
       } else {
@@ -23,6 +26,6 @@ const signupFormHandler = async (event) => {
       alert('passwords must match');
   }};
 
-  document
+document
   .querySelector('#register-form')
   .addEventListener('click', signupFormHandler);
