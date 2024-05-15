@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.log("genre", genre);
             console.log("rating", rating);
 
+            // create new artist in db if not already there
             fetch('api/artists/', {
                 method: 'POST',
                 headers: {
@@ -33,6 +34,32 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 },
                 body: JSON.stringify({
                     artistName: artist,
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            // create new song using music routes
+            fetch('api/music/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    artistName: artist,
+                    songTitle: song,
+                    albumName: album,
+                    genre: genre
                 })
             })
             .then(response => {
