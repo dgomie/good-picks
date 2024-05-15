@@ -1,0 +1,26 @@
+/* Flexbox to align stars from left to right */
+#star-rating {
+    display: flex;
+    flex-direction: row-reverse; 
+}
+/* Default star color */
+.text-gray-100 {
+    color: #cbd5e0; /* Adjust to your desired default color */
+}
+
+/* Hover color */
+.text-gray-100:hover,
+input[type="radio"]:checked ~ label.text-gray-100 {
+    color: #f59e0b; /* Adjust to your desired hover color */
+}
+
+/* Checked color */
+input[type="radio"]:checked ~ label.text-gray-100 {
+    color: #f59e0b; /* Adjust to your desired checked color */
+}
+
+/* Change preceding stars color on hover */
+input[type="radio"]:hover ~ label.text-gray-100,
+input[type="radio"]:checked ~ label.text-gray-100 {
+    color: #f59e0b; /* Adjust to your desired color for preceding stars */
+}
