@@ -28,26 +28,63 @@ async function setArtistImage(artistName) {
     artistList.appendChild(listItem);
     listItem.appendChild(deleteBtn); //appending
   }
-  
-  artistArray.forEach((artist) => {
-    setArtistImage(artist);
+ // delete an artist event listener
+ deleteBtn.addEventListener('click', async () => {
+  const response = await fetch(`/api/music/artist/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
   });
 
-  // delete an artist
-  async function deleteArtist(){
-    const response = await fetch(`/api/music/artist/${id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-    });
+  if (response.ok) {
+    listItem.remove();
+  } else {
+    console.error('Failed to delete artist');
   }
-  
+})
 
-  // delete a song
-  async function deleteSong(){
-    const response = await fetch(`/api/music/song/${id}`, {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-    });
+artistArray.forEach((artist) => {
+setArtistImage(artist);
+});
+
+let songArray = ["Hey Jude", "Ant Pile", "Money Trees"]
+// fetches favorite song images
+async function fetchSongImage() {
+const response = await fetch(`/api/`, {
+  method: 'GET',
+  headers: { 'Content-Type': 'application/json' },
+});
+// if (response.ok) {
+//   const data = await response.json();
+//   console.log("RESPONSE", data)
+//   const imgSource = data.images[0].url; // replace with the correct path to the image URL in the response data
+//   console.log(imgSource)
+//   return imgSource
+// } else {
+//   alert('Failed to fetch artist image.');
+// }
+}
+// sets the song images
+async function setSongImage() {
+const songList = document.querySelector(".song-list");
+const songImageLink = await fetchSongImage();
+const songListItem = document.createElement('li');
+const deleteBtn = document.createElement('button');
+deleteBtn.innerHTML = '🗑';
+deleteBtn.classList.add("flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600");
+songListItem.innerHTML = `<img src=${songImageLink} width=300>`;
+songList.appendChild(songListItem);
+songListItem.appendChild(deleteBtn);
+
+// delete a song event listener
+deleteBtn.addEventListener('click', async () => {
+  const response = await fetch(`/api/music/tracks/${id}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (response.ok) {
+    listItem.remove();
+  } else {
+    console.error('Failed to delete song');
   }
-
-  // add event listener for deleting a song and artist
+});
+}
