@@ -1,10 +1,52 @@
 <div class="container giantContainer max-w-full">
     <div class="header border-b-2 text-center justify-center">
-       
+
         <h2 class="p-5 text-center "><strong>Welcome {{ username }}</strong></h2>
-        
+
     </div>
-    <div class="public-feed flex overflow-y-scroll justify-center w-screen border-b-8">
+    <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full" id="modalBtn">Good
+        Picks</button>
+    <div>
+        <div class="modal" id="modalContainer">
+            <div class="modal-content">
+                <form>
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <h2>Good Picks</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="flex justify-center">
+                            <div class="flex flex-col">
+                                <label for="song">Song</label>
+                                <input type="text" id="song" name="song" required>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="artist">Artist</label>
+                                <input type="text" id="artist" name="artist" required>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="flex flex-col">
+                                <label for="album">Album</label>
+                                <input type="text" id="album" name="album" required>
+                            </div>
+                            <div class="flex flex-col">
+                                <label for="genre">Genre</label>
+                                <input type="text" id="genre" name="genre" required>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="flex flex-col">
+                                <label for="rating">Rating</label>
+                                <input type="text" id="rating" name="rating" required>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{!-- <div class="public-feed flex overflow-y-scroll justify-center w-screen border-b-8">
         <div class="make-post">
             <form>
                 <div class="post-input flex w-full p-5 focus:ring-2 focus:ring-indigo-600 space-x-10">
@@ -20,18 +62,19 @@
                 </div>
             </form>
         </div>
+    </div> --}}
+    <div class="public-posts border-b-2 ml-12 p-5">
+        {{!-- add in users profile picture and add an each to get other users posts --}}
+        <ul id="feed" class="flex flex-col items-center">
+            {{#each ratings}}
+            {{> songcard}}
+            {{/each}}
+        </ul>
     </div>
-  <div class="public-posts border-b-2 ml-12 p-5">
-    {{!-- add in users profile picture and add an each to get other users posts --}}
-    <ul id="feed" class="flex flex-col items-center">
-        {{#each ratings}}
-        {{> songcard}}
-        {{/each}}
-    </ul>
-</div>
 </div>
 
-{{!-- <script src="/js/dashboard.js"></script> --}}
+{{!--
+<script src="/js/dashboard.js"></script> --}}
 
 
 {{!-- <div>
