@@ -33,9 +33,7 @@ Photo by <a href="https://unsplash.com/@photowolf?utm_content=creditCopyText&utm
 https://iconduck.com/icons/311796/avatar-default-light
 https://iconduck.com/sets/material-letter-icons
 https://github.com/adanzweig/nodejs-spotify/blob/master/index.js
-<class="giantCSSContainer">
-MIKE FREEMAN!!!!!!!
-  </giantCSSContainer>
+  
 
 
 ## Tests
