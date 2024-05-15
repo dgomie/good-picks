@@ -15,23 +15,48 @@ document.addEventListener('DOMContentLoaded', (event) => {
             event.preventDefault();
 
             // Get the form input values here, when the form is submitted
-            const songName = document.getElementById('songInput').value.trim();
-            const artistName = document.getElementById('artistInput').value.trim();
-            const albumName = document.getElementById('albumInput').value.trim();
+            const song = document.getElementById('songInput').value.trim();
+            const artist = document.getElementById('artistInput').value.trim();
+            const album = document.getElementById('albumInput').value.trim();
             const genre = document.getElementById('categoryInput').value.trim();
 
-            console.log("song name", songName);
-            console.log("artist", artistName);
-            console.log("album name", albumName);
+            console.log("song name", song);
+            console.log("artist", artist);
+            console.log("album name", album);
             console.log("genre", genre);
             console.log("rating", rating);
-            clearInputs();
+
+            fetch('api/artists/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    artistName: artist,
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            
+            // clearInputs();
+
         }
     });
 });
 
 
-const clearInputs = () =>{
+const clearInputs = () => {
     document.getElementById('songInput').value = '';
     document.getElementById('artistInput').value = '';
     document.getElementById('albumInput').value = '';
@@ -41,14 +66,13 @@ const clearInputs = () =>{
     radios.forEach(radio => {
         radio.checked = false;
     });
-   ;
-   clearInputs();
+};
+  
+   
+
    //refresh page to see new post
-    
-}
-
-
  // create artist name and pull img if doesn't exist in db
+
     // create music item with song name/album name/genre/and artist_id
     // create rating with rating, user_id, music_id,
 
