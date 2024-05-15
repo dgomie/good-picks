@@ -48,10 +48,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .catch(error => {
                 console.error(error);
             });
-            
-            // clearInputs();
 
-        }
+            clearInputs();
+            }
     });
 });
 
