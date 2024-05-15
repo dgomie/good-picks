@@ -87,11 +87,37 @@ router.get("/logout", (req, res) => {
   res.render("logout");
 });
 
-router.get("/charts", (req, res) => {
-  res.render("charts", {
-    title: "Charts",
-    ...req.session,
-  });
+router.get("/charts", async (req, res) => {
+  try {
+    const dbRatingData = await Rating.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["name"]
+        },
+        {
+          model: Music,
+          attributes: ["title", "album"],
+          include: [
+            {
+              model: Artist,
+              attributes: ["name"]
+            }
+          ]
+        }
+      ]
+    })
+    const ratings = dbRatingData.map((rating) => rating.get({ plain: true }))
+    res.render("charts", {
+      title: "Charts",
+      ...req.session,
+      ratings
+    })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err)
+  }
+
 });
 
 router.get("/music", (req, res) => {
