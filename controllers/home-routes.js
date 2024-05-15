@@ -76,10 +76,14 @@ router.get("/dashboard", async (req, res) => {
 
 // user profile
 // TODO: put back withAuth
-router.get("/profile", (req, res) => {
+router.get("/profile", async (req, res) => {
+  const dbArtistData = await Artist.findAll();
+  const artists = dbArtistData.map((artist) => artist.get({ plain: true }));
+  console.log(artists)
   res.render("profile", {
     title: "Profile",
     ...req.session,
+    artists
   });
 });
 
