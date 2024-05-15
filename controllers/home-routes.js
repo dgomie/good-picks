@@ -39,7 +39,7 @@ router.get("/register", (req, res) => {
 router.get("/settings", (req, res) => {
   res.render("settings", {
     title: "Settings",
-    loggedIn: req.session.loggedIn,
+    ...req.session,
   });
 });
 
