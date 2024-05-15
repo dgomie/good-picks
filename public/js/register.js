@@ -8,8 +8,6 @@ const signupFormHandler = async (event) => {
     .querySelector("#password-confirm")
     .value.trim();
 
-  console.log(username, email, password);
-
   if (password === passwordConfirm) {
     if (username && email && password) {
       const response = await fetch("/api/users", {

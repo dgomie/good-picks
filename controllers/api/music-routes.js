@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Music } = require("../../models");
+const { Music, Artist } = require("../../models");
 
 // these aren't definite routes, just a starting point based off what I think we need.
 // route to get all songs
@@ -71,7 +71,16 @@ router.get("/artist/:artist/:id", async (req, res) => {
 // route to post song rating
 router.post("/", async (req, res) => {
   try {
-    const musicData = await Music.create(req.body);
+    const artist = await Artist.findOne({ where: { name: req.body.artistName } });
+  
+    const musicData = await Music.create({
+      title: req.body.songTitle,
+      artist_id: artist.id,
+      album: req.body.albumName,
+      genre: req.body.genre
+    });
+    
+    console.log(musicData)
     res.status(200).json(musicData);
   } catch (err) {
     res.status(400).json(err);

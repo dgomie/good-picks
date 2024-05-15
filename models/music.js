@@ -57,6 +57,12 @@ Music.init(
     underscored: true,
     freezeTableName: true,
     modelName: "music",
+    indexes: [
+      {
+        unique: true,
+        fields: ["title", "album"],
+      },
+    ],
   }
 );
 module.exports = Music;
