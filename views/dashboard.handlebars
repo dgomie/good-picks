@@ -6,11 +6,11 @@
     </div>
 
   <!-- Modal toggle -->
-<div class="flex justify-center">
-<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-  Good Picks
+{{!-- <div class="flex justify-center">
+<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-3xl block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+  ＋
 </button>
-</div>
+</div> --}}
 
 <!-- Main modal -->
 <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -105,6 +105,9 @@
         </ul>
     </div>
 </div>
+<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-3xl block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 fixed bottom-4 right-4" type="button">
+  ＋
+</button>
 
 
 <script src="/js/modal.js"></script>
@@ -112,17 +115,3 @@
 <script src="/js/dashboard.js"></script> --}}
 
 
-{{!-- <div>
-    <div class="flex">
-        <aside class="flex sidebar w-1/4">
-            <section
-                class="box-border h-40 p-4 border-2 text-left border-2 border-yellow-200 border-opacity-100 mb-8 rounded bg-yellow-50 ml-8 h-full shadow-lg">
-                Your Current Top 5:</section>
-            <ol class="top5-list">
-                {{#each top5}}
-                <li>{{this}}</li>
-                {{/each}}
-            </ol>
-        </aside>
-    </div>
-</div> --}}
