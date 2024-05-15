@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Rating } = require('../../models');
+const { where } = require('sequelize');
+const { Rating, Artist, Music } = require('../../models');
 
 // these aren't definite routes, just a starting point based off what I think we need.
 // route to get all ratings
@@ -85,6 +86,31 @@ router.get("/average/:music_id", async (req, res) => {
     res.status(200).json(average);
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+// route to post new rating 
+router.post("/", async (req, res) => {
+  try {
+    const artist = await Artist.findOne({ where: { name: req.body.artistName } });
+    const music = await Music.findOne({ where: { 
+      name: req.body.songName,
+      album: req.body.albumName,
+      artist_id: artist.id
+     } })
+
+     console.log("MUSIC INFO:",music)
+  
+    const ratingData = await Rating.create({
+      rating: req.body.rating,
+      artist_id: artist.id,
+      album: music.album,
+      user_id: req.session.user_id
+    });
+    
+    res.status(200).json(ratingData);
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 
