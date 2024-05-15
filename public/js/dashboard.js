@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
+    const closeBtn = document.getElementById('closeBtn');
+    closeBtn.addEventListener('click', clearInputs)
+    
     let rating = 1;
     let stars = document.getElementsByName('rating');
 
@@ -75,14 +78,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .catch(error => {
                 console.error(error);
             });
-
-            clearInputs();
+          
             }
     });
 });
 
 
-const clearInputs = () => {
+const clearInputs = () => { 
     document.getElementById('songInput').value = '';
     document.getElementById('artistInput').value = '';
     document.getElementById('albumInput').value = '';
@@ -96,13 +98,7 @@ const clearInputs = () => {
   
    
 
-   //refresh page to see new post
- // create artist name and pull img if doesn't exist in db
+//refresh page to see new post after submitting 
 
     // create music item with song name/album name/genre/and artist_id
     // create rating with rating, user_id, music_id,
-
-
-
-
-
