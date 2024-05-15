@@ -35,6 +35,14 @@ router.get("/register", (req, res) => {
   });
 });
 
+// settings page
+router.get("/settings", (req, res) => {
+  res.render("settings", {
+    title: "Settings",
+    loggedIn: req.session.loggedIn,
+  });
+});
+
 //user dashboard
 // TODO: put back withAuth
 
