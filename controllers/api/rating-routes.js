@@ -92,20 +92,26 @@ router.get("/average/:music_id", async (req, res) => {
 // route to post new rating 
 router.post("/", async (req, res) => {
   try {
-    const artist = await Artist.findOne({ where: { name: req.body.artistName } });
     const music = await Music.findOne({ where: { 
-      name: req.body.songName,
+      title: req.body.songTitle,
       album: req.body.albumName,
-      artist_id: artist.id
-     } })
+    }
+  });
 
-     console.log("MUSIC INFO:",music)
+    //  const music = db.get({ plain: true });
   
+    // const ratingData = await Rating.create({
+    //   rating: req.body.rating,
+    //   artist_id: music.artist_id,
+    //   album: music.album,
+    //   user_id: req.session.userId
+    // });
+
     const ratingData = await Rating.create({
       rating: req.body.rating,
-      artist_id: artist.id,
-      album: music.album,
-      user_id: req.session.user_id
+      artist_id: music.artist_id,
+      music_id: music.id,
+      user_id: req.session.userId
     });
     
     res.status(200).json(ratingData);

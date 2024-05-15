@@ -67,6 +67,9 @@ router.get("/dashboard", async (req, res) => {
           ],
         },
       ],
+      order: [
+        ['created_at', 'DESC'],
+      ],
     });
     const ratings = dbRatingData.map((rating) => rating.get({ plain: true }));
 
