@@ -26,15 +26,16 @@ router.get("/:artist", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-
   try {
     // Check if the artist already exists
-    const existingArtist = await Artist.findOne({ where: { name: req.body.artistName } });
+    const existingArtist = await Artist.findOne({
+      where: { name: req.body.artistName },
+    });
 
-        if (existingArtist) {
-            res.status(400).json({ message: 'Artist already exists' });
-            return;
-        }
+    if (existingArtist) {
+      res.status(204).send(existingArtist);
+      return;
+    }
 
     const artistName = req.body.artistName;
 
@@ -70,11 +71,11 @@ router.post("/", async (req, res) => {
         const spotArtistName = data.name;
         const artistPhoto = data.images[0].url;
         const genre = data.genres[0];
-    
+
         const newArtist = await Artist.create({
           name: spotArtistName,
           artistImg: artistPhoto,
-          "genre": genre,
+          genre: genre,
         });
         res.status(201).json(newArtist);
       } else {

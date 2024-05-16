@@ -5,7 +5,9 @@
     {{!-- user profile image --}}
     <img
       src="/images/alphabet/{{this.user.profileImg}}-letter.512x512.png" 
+      onerror="this.onerror=null; this.src='/images/alphabet/default-letter.512x512.png';"
       alt=""
+      
       class="relative inline-block h-[48px] w-[48px] !rounded-full  object-cover object-center ml-1" />
     <div class="flex w-full flex-col gap-0.5">
         <div class="flex items-center justify-between">
