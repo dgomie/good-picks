@@ -136,6 +136,7 @@ router.post("/", async (req, res) => {
         // Get the album that matches the albumName parameter
         console.log(albumData);
         let albumId = null;
+        
 
         for (let i = 0; i < albumData.items.length; i++) {
           if (
