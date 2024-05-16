@@ -14,15 +14,14 @@ window.addEventListener("submit", function (event) {
 
     fetchArtist(artist)
       .then((data) => {
-        console.log(data);
         return fetchMusic(artist, song, album);
       })
       .then((data) => {
-        console.log(data);
         return fetchRatings(song, album, rating);
       })
       .then(() => {
-        this.location.reload()
+        clearInputs()
+        // this.location.reload()
       })
       .catch((error) => {
         console.error(error);
@@ -43,8 +42,9 @@ function fetchArtist(artist) {
   })
     .then((response) => {
       if (response.ok) {
+        console.log("artist:",response)
         return response.json();
-      } else if (response.status === 400) {
+      } else if (response.status === 204) {
         return Promise.resolve("artist already in database");
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -70,9 +70,10 @@ function fetchMusic(artist, song, album, genre) {
   })
     .then((response) => {
       if (response.ok) {
+        console.log("music", response)
         return response.json();
       } else if (response.status === 400) {
-        return Promise.resolve("song already in database");
+        return Promise.resolve("Album not found");
       } else {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -96,6 +97,7 @@ function fetchRatings(song, album, rating) {
   })
     .then((response) => {
       if (response.ok) {
+        console.log("ratings", response)
         return response.json();
       } else {
         console.log(response)

@@ -1,10 +1,6 @@
-
-    <div class="table-row">
-        <div class="table-cell p-2 text-left">{{this.music.title}}</div>
-        <div class="table-cell p-2 text-left">{{this.music.artist.name}}</div>
-        <div class="table-cell p-2 text-left">{{this.music.album}}</div>
-        <div class="table-cell p-2 text-left">{{this.rating}}</div>
-    </div> 
-
-
-
+<tr>
+  <td class="px-6 py-3">{{this.music.title}}</td>
+  <td class="px-6 py-3">{{this.music.artist.name}}</td>
+  <td class="px-6 py-3 hidden lg:flex">{{this.music.album}}</td>
+  <td class="text-center px-6 py-3">{{roundAvg this.averageRating}}</td>
+</tr>
