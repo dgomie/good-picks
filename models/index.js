@@ -39,14 +39,14 @@ Rating.belongsTo(Music, {
     foreignKey: 'music_id'
 });
 
-Rating.belongsTo(Artist, {
-  foreignKey: 'artist_id',
-});
+// Rating.belongsTo(Artist, {
+//   foreignKey: 'artist_id',
+// });
 
-// Artist.js
-Artist.hasMany(Rating, {
-  foreignKey: 'artist_id',
-});
+// // Artist.js
+// Artist.hasMany(Rating, {
+//   foreignKey: 'artist_id',
+// });
 
 
 

@@ -29,12 +29,12 @@ router.post("/", async (req, res) => {
 
   try {
     // Check if the artist already exists
-    // const existingArtist = await Artist.findOne({ where: { name: req.body.artistName } });
+    const existingArtist = await Artist.findOne({ where: { name: req.body.artistName } });
 
-    //     if (existingArtist) {
-    //         res.status(400).json({ message: 'Artist already exists' });
-    //         return;
-    //     }
+        if (existingArtist) {
+            res.status(400).json({ message: 'Artist already exists' });
+            return;
+        }
 
     const artistName = req.body.artistName;
 
