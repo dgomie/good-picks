@@ -18,3 +18,9 @@ Handlebars.registerHelper('renderAlbumImages', function(albumImages) {
   
     return new Handlebars.SafeString(albumImagesHtml);
   });
+
+Handlebars.registerHelper('roundAvg', function(averageRating) {
+    const formatAvg =  Math.round(averageRating * 10) / 10;
+
+    return new Handlebars.SafeString(formatAvg);
+  });
