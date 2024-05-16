@@ -46,6 +46,44 @@ router.get("/settings", (req, res) => {
 
 //user dashboard
 // TODO: put back withAuth
+router.get("/dashboard", async (req, res) => {
+  console.log(req.session);
+
+  try {
+    const dbRatingData = await Rating.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["name", "profileImg"],
+        },
+        {
+          model: Music,
+          attributes: ["title", "album", "albumImg"],
+          include: [
+            {
+              model: Artist,
+              attributes: ["name"],
+            },
+          ],
+        },
+      ],
+      order: [
+        ['created_at', 'DESC'],
+      ],
+    });
+    const ratings = dbRatingData.map((rating) => rating.get({ plain: true }));
+
+    console.log(ratings);
+    res.render("dashboard", {
+      title: "Dashboard",
+      ...req.session,
+      ratings,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 router.get("/charts", async (req, res) => {
   try {
