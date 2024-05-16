@@ -97,15 +97,8 @@ router.post("/", async (req, res) => {
       album: req.body.albumName,
     }
   });
-
-    //  const music = db.get({ plain: true });
-  
-    // const ratingData = await Rating.create({
-    //   rating: req.body.rating,
-    //   artist_id: music.artist_id,
-    //   album: music.album,
-    //   user_id: req.session.userId
-    // });
+  console.log("Request DATA:", req.body)
+  console.log("Music Data:", music)
 
     const ratingData = await Rating.create({
       rating: req.body.rating,
