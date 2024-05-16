@@ -76,6 +76,14 @@ router.get("/callback", (req, res) => {
     });
 });
 
+
+router.get("/test/artist-image/:artist/:track", async (req, res) => {
+  const artistTrackData = await spotifyApi.searchTracks(`track:${req.params.track} artist:${req.params.artist}`)
+  res.send(artistTrackData)
+});
+
+//router.get
+
 //Retrieve the artist images for profile page
 
 router.get("/artist-image/:artistName", async (req, res) => {
