@@ -40,18 +40,6 @@ Music.init(
   },
 
   {
-    // TODO: make a beforeCreate that pulls the album art url and sets it to albumImg
-    // hooks: {
-    //   beforeCreate: async (newUserData) => {
-    //     newUserData.password = await bcrypt.hash(newUserData.password, 10);
-    //     if (/^[a-zA-Z]$/.test(newUserData.name[0])) {
-    //       newUserData.profileImg = newUserData.name[0].toLowerCase();
-    //     } else {
-    //       newUserData.profileImg = "default";
-    //     }
-    //     return newUserData;
-    //   },
-    // },
     sequelize,
     timestamps: false,
     underscored: true,
