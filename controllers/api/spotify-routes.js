@@ -225,8 +225,6 @@ router.get("/albums/:artistName/:albumName", async (req, res) => {
   }
 });
 
-// 
-router.get("")
 
 // tracks get route
 router.get("/tracks", async (req, res) => {

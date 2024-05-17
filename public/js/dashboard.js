@@ -90,7 +90,10 @@ window.addEventListener("submit", function (event) {
           });
         })
         .then((response) => response.json())
-        .then((data) => console.log("POST request success:", data))
+        .then((data) => {
+          console.log("POST request success:", data);
+          // location.reload();
+      })
         .catch((error) => {
           console.error("Error:", error);
         });
@@ -98,6 +101,7 @@ window.addEventListener("submit", function (event) {
       .catch((error) => {
         console.error("Error:", error);
       });
+      
 
     // brackets for event listener
   }
