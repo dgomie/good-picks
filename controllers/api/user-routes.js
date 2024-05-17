@@ -108,18 +108,29 @@ router.post("/", async (req, res) => {
   }
 });
 
-// delete user
+// delete route
 router.delete("/:id", async (req, res) => {
+  console.log('deleting user', req.session.userId, req.params.id)
   try {
     const deleteUser = await User.destroy({
       where: {
-        id: req.params.id,
+        id: req.session.userId,
       }
     });
-    res.status(200).json(deleteUser);
+    console.log(req.session)
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.clearCookie('connect.sid'); // replace 'session-cookie-name' with the name of your session cookie
+        console.log('session ended')
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 
 module.exports = router;
