@@ -7,8 +7,8 @@ window.addEventListener("submit", function (event) {
     // Get the form input values here, when the form is submitted
     const songInput = document.getElementById("songInput").value.trim();
     const artistInput = document.getElementById("artistInput").value.trim();
-    const albumInput = document.getElementById("albumInput").value.trim();
-    const genreInput = document.getElementById("categoryInput").value.trim();
+    // const albumInput = document.getElementById("albumInput").value.trim();
+    // const genreInput = document.getElementById("categoryInput").value.trim();
 
     console.log(
       `song: ${songInput} artist:${artistInput}, album: ${albumInput}`
