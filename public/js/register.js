@@ -1,4 +1,5 @@
-const signupFormHandler = async (event) => {
+// deleted async
+const signupFormHandler =  (event) => {
   event.preventDefault();
 
   const username = document.querySelector("#username-register").value.trim();
@@ -10,18 +11,19 @@ const signupFormHandler = async (event) => {
 
   if (password === passwordConfirm) {
     if (username && email && password) {
-      const response = await fetch("/api/users", {
+       fetch("/api/users", {
         method: "POST",
         body: JSON.stringify({ username, email, password }),
         headers: { "Content-Type": "application/json" },
-      });
-
-
-      if (response.ok) {
+      }).then(response  => {
+        return response.json()
+      }).then(data => {
+        console.log(data)
+        localStorage.setItem('userId', data.id);
         document.location.replace('/api/spotify/login');
-      } else {
-        alert("Failed to sign up.");
-      }
+      }).catch(err => {
+          alert("Failed to sign up.");
+      })
     }
   } else {
     alert("passwords must match");
