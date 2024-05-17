@@ -11,7 +11,7 @@ window.addEventListener("submit", function (event) {
     // const genreInput = document.getElementById("categoryInput").value.trim();
 
     console.log(
-      `song: ${songInput} artist:${artistInput}, album: ${albumInput}`
+      `song: ${songInput} artist:${artistInput}`
     );
 
     fetch(`/api/spotify/artist/${encodeURIComponent(artistInput)}/${encodeURIComponent(songInput)}`)
@@ -106,7 +106,6 @@ window.addEventListener("submit", function (event) {
 const clearInputs = () => {
   document.getElementById("songInput").value = "";
   document.getElementById("artistInput").value = "";
-  document.getElementById("albumInput").value = "";
   document.getElementById("categoryInput").value = "";
 
   const radios = document.querySelectorAll(
