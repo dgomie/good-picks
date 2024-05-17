@@ -5,109 +5,144 @@ window.addEventListener("submit", function (event) {
     closeBtn.addEventListener("click", clearInputs);
 
     // Get the form input values here, when the form is submitted
-    const song = document.getElementById("songInput").value.trim();
-    const artist = document.getElementById("artistInput").value.trim();
-    const album = document.getElementById("albumInput").value.trim();
-    const genre = document.getElementById("categoryInput").value.trim();
-    const rating = document.querySelector('input[name="rating"]:checked').value;
-    console.log(`song: ${song} artist:${artist}, album: ${album}`);
+    const songInput = document.getElementById("songInput").value.trim();
+    const artistInput = document.getElementById("artistInput").value.trim();
+    const albumInput = document.getElementById("albumInput").value.trim();
+    const genreInput = document.getElementById("categoryInput").value.trim();
+    const ratingInput = document.querySelector(
+      'input[name="rating"]:checked'
+    ).value;
+    console.log(
+      `song: ${songInput} artist:${artistInput}, album: ${albumInput}`
+    );
 
-    fetchArtist(artist)
+    fetch(
+      `/api/spotify/artist/${encodeURIComponent(
+        artistInput
+      )}/${encodeURIComponent(songInput)}`
+    )
+      .then((response) => response.json())
       .then((data) => {
-        return fetchMusic(artist, song, album);
+        console.log("Success:", data);
+        const albumId = data.body.tracks.items[0].album.id;
+        const albumName = data.body.tracks.items[0].album.name;
+        const albumImgUrl = data.body.tracks.items[0].album.images[0].url;
+        const songName = data.body.tracks.items[0].name;
+        const artistName = data.body.tracks.items[0].album.artists[0].name;
+
+        console.log("Album Name", albumName);
+        console.log("Album Img", albumImgUrl);
+        console.log("Song Title", songName);
+        console.log("Artist Name", artistName);
+
+        fetch('/api/music/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "songName": songName,
+            "artistName": artistName,
+            "albumName": albumName,
+            "albumImgUrl": albumImgUrl
+          }),
+        });
       })
-      .then((data) => {
-        return fetchRatings(song, album, rating);
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
       })
-      .then(() => {
-        clearInputs()
-        // this.location.reload()
+      .then(data => {
+        console.log('POST request success:', data)
+        const ratingInput = document.querySelector(
+          'input[name="rating"]:checked'
+        ).value;
+        fetch('/api/ratings/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "songTitle": songName,
+            "albumName": albumName,
+            "rating": ratingInput
+          }),
+        });
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error:", error);
       });
-
   }
 });
 
-function fetchArtist(artist) {
-  return fetch("api/artists/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      artistName: artist,
-    }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log("artist:",response)
-        return response.json();
-      } else if (response.status === 204) {
-        return Promise.resolve("artist already in database");
-      } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+// window.addEventListener("submit", function (event) {
+//   if (event.target.matches("#formID")) {
+//     event.preventDefault();
 
-function fetchMusic(artist, song, album, genre) {
-  return fetch("api/music/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      artistName: artist,
-      songTitle: song,
-      albumName: album,
-      genre: genre,
-    }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log("music", response)
-        return response.json();
-      } else if (response.status === 400) {
-        return Promise.resolve("Album not found");
-      } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+//     closeBtn.addEventListener("click", clearInputs);
 
-function fetchRatings(song, album, rating) {
-  return fetch("api/ratings/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      songTitle: song,
-      albumName: album,
-      rating: rating
-    }),
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log("ratings", response)
-        return response.json();
-      } else {
-        console.log(response)
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
+//     // Get the form input values here, when the form is submitted
+//     const songInput = document.getElementById("songInput").value.trim();
+//     const artistInput = document.getElementById("artistInput").value.trim();
+//     const albumInput = document.getElementById("albumInput").value.trim();
+//     const genreInput = document.getElementById("categoryInput").value.trim();
+//     const ratingInput = document.querySelector(
+//       'input[name="rating"]:checked'
+//     ).value;
+//     console.log(
+//       `song: ${songInput} artist:${artistInput}, album: ${albumInput}`
+//     );
+
+//     fetch(
+//       `/api/spotify/artist/${encodeURIComponent(
+//         artistInput
+//       )}/${encodeURIComponent(songInput)}`
+//     )
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log("Success:", data);
+//         const albumId = data.body.tracks.items[0].album.id;
+//         const albumName = data.body.tracks.items[0].album.name;
+//         const albumImgUrl = data.body.tracks.items[0].album.images[0].url;
+//         const songName = data.body.tracks.items[0].name;
+//         const artistName = data.body.tracks.items[0].album.artists[0].name;
+
+//         console.log("Album Name", albumName);
+//         console.log("Album Img", albumImgUrl);
+//         console.log("Song Title", songName);
+//         console.log("Artist Name", artistName);
+
+//         return fetch('/api/music/', {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify({
+//             songName: songName,
+//             artistName: artistName,
+//             albumName: albumName,
+//             albumImgUrl: albumImgUrl
+//           }),
+//         });
+//       })
+//       .then(response => response.json())
+//       .then(data => console.log('POST request success:', data))
+//       .catch((error) => {
+//         console.error("Error:", error);
+//       })
+//       .catch((error) => {
+//         console.error("Error:", error);
+//       });
+//   }
+// });
 
 const clearInputs = () => {
   document.getElementById("songInput").value = "";
@@ -123,7 +158,7 @@ const clearInputs = () => {
   });
 };
 
-//refresh page to see new post after submitting
+// //refresh page to see new post after submitting
 
-// create music item with song name/album name/genre/and artist_id
-// create rating with rating, user_id, music_id,
+// // create music item with song name/album name/genre/and artist_id
+// // create rating with rating, user_id, music_id
