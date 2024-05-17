@@ -14,11 +14,7 @@ window.addEventListener("submit", function (event) {
       `song: ${songInput} artist:${artistInput}, album: ${albumInput}`
     );
 
-    fetch(
-      `/api/spotify/artist/${encodeURIComponent(
-        artistInput
-      )}/${encodeURIComponent(songInput)}`
-    )
+    fetch(`/api/spotify/artist/${encodeURIComponent(artistInput)}/${encodeURIComponent(songInput)}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);

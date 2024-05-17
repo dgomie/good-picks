@@ -168,41 +168,23 @@ router.get("/charts", async (req, res) => {
     res.status(500).json(err)
   }
 });
-// router.get("/charts", async (req, res) => {
-//   try {
-//     const dbRatingData = await Rating.findAll({
-//       include: [
-//         {
-//           model: User,
-//           attributes: ["name"]
-//         },
-//         {
-//           model: Music,
-//           attributes: ["title", "album"],
-//           include: [
-//             {
-//               model: Artist,
-//               attributes: ["name"]
-//             }
-//           ]
-//         }
-//       ]
-//     })
-//     const ratings = dbRatingData.map((rating) => rating.get({ plain: true }))
-//     res.render("charts", {
-//       title: "Charts",
-//       ...req.session,
-//       ratings
-//     })
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err)
-//   }
 
-// });
 
 router.get("/music", (req, res) => {
   res.render("music");
 });
+
+
+// redirect page for spotify authorization
+// router.get("/redirect", (req, res) => {
+//   if (req.session.loggedIn & req.session.spotAccessToken) {
+//     res.redirect("/dashboard")
+//   } else if (req.session.loggedIn) {
+//     res.redirect("/api/spotify/login")
+//   } else {
+//     res.send("Error loggin in")
+//   }
+// })
+
 
 module.exports = router;
