@@ -85,10 +85,11 @@ router.post("/", async (req, res) => {
     const artistId = artist.id;
 
     const existingSong = await Music.findOne({
-      where: { name: req.body.songTitle, artist_id: artistId },
+      where: { title: req.body.songTitle, artist_id: artistId },
     });
 
     if (!existingSong) {
+      console.log("Attemping to create artist")
       const musicData = await Music.create({
         title: req.body.songTitle,
         artist_id: artistId,
@@ -102,6 +103,7 @@ router.post("/", async (req, res) => {
       res.status(200).json(existingSong);
     }
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });
