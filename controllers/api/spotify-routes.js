@@ -89,6 +89,16 @@ router.get("/artist/:artist/:track", async (req, res) => {
 }
 });
 
+router.get("/artist/:artistId", async (req, res) => {
+  try {
+  const artistData = await spotifyApi.getArtist(req.params.artistId)
+  console.log('Artist information', artistData);
+  res.status(200).json(artistData)
+  } catch (error) {
+    res.send("error getting data")
+  }
+})
+
 //Retrieve the artist images for profile page
 
 router.get("/artist-image/:artistName", async (req, res) => {
@@ -96,7 +106,7 @@ router.get("/artist-image/:artistName", async (req, res) => {
   const searchEndpoint = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
     artistName
   )}&type=artist`;
-  const token = req.session.spotAccessToken; // replace with your actual token
+  const token = req.session.spotAccessToken; 
 
   let response = await fetch(searchEndpoint, {
     method: "GET",

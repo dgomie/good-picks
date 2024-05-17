@@ -101,9 +101,25 @@ router.get("/:artist", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    
-  } catch (error) {
-    console.error("Error:", error);
+    const existingArtist = await Artist.findOne({where: {name: req.body.artistName}})
+    if (!existingArtist) {
+      const response = await fetch(`http://localhost:3001/api/spotify/artist/${req.body.artistId}`);
+      const artistData = await response.json()
+      const artistImgUrl = artistData.body.images[0].url;
+      
+      const newArtistData = await Artist.create({
+        name: req.body.artistName,
+        artistImg: artistImgUrl
+      })
+      console.log("Posted Music Data", newArtistData)
+      res.status(200).json(newArtistData)
+    } else {
+      console.log("Artist already in Database", existingArtist)
+      res.status(200).json(existingArtist)
+    }
+  }
+  catch (error) {
+    console.error("Error adding Artist:", error);
   }
 });
 

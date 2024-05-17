@@ -46,7 +46,7 @@ router.get("/genre/:genre", async (req, res) => {
 router.get("/artist/:artist", async (req, res) => {
   try {
     const musicData = await Music.findAll({
-      where: { artist: req.params.artist },
+      where: { name: req.params.artist },
     });
     if (!musicData) {
       res.status(404).json({ message: "No songs found with this artist!" });
@@ -82,107 +82,127 @@ router.post("/", async (req, res) => {
     const artist = await Artist.findOne({
       where: { name: req.body.artistName },
     });
+    const artistId = artist.id;
 
-    const artistName = artist.name;
-
-    // const existingAlbum = await Music.findOne({
-    //   where: {
-    //     album: req.bodyalbumName,
-    //     artist_id: artist.id,
-    //   },
-    // });
-
-    // if (existingAlbum) {
-    //   const musicData = await Music.create({
-    //     title: req.body.songTitle,
-    //     artist_id: artist.id,
-    //     album: existingAlbum.name,
-    //     genre: artist.genre,
-    //     albumImg: existingAlbum.albumImg,
-    //   });
-
-    //   console.log("bananas data", musicData);
-    //   res.status(200).json(musicData);
-    // } else {
-    const albumName = req.body.albumName;
-    const searchEndpoint = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-      artistName
-    )}&type=artist`;
-    const token = req.session.spotAccessToken;
-
-    let response = await fetch(searchEndpoint, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+    const existingSong = await Music.findOne({
+      where: { name: req.body.songTitle, artist_id: artistId },
     });
-    // Getting artist id
-    if (response.ok) {
-      const data = await response.json();
-      const artistId = data.artists.items[0].id;
 
-      const artistAlbumsEndpoint = `https://api.spotify.com/v1/artists/${artistId}/albums`;
-      response = await fetch(artistAlbumsEndpoint, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+    if (!existingSong) {
+      const musicData = await Music.create({
+        title: req.body.songTitle,
+        artist_id: artistId,
+        album: req.body.albumName,
+        albumImg: req.body.albumImg,
       });
-
-      if (response.ok) {
-        const albumData = await response.json();
-        // Get the album that matches the albumName parameter
-        console.log(albumData);
-        let albumId = null;
-        
-
-        for (let i = 0; i < albumData.items.length; i++) {
-          if (
-            albumData.items[i]["name"].toLowerCase() === albumName.toLowerCase()
-          ) {
-            albumId = albumData.items[i]["id"];
-            console.log(albumId);
-            break;
-          }
-        }
-
-        if (albumId) {
-          const albumEndpoint = `https://api.spotify.com/v1/albums/${albumId}`;
-          response = await fetch(albumEndpoint, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          if (response.ok) {
-            const albumData = await response.json();
-            const albumArtUrl = albumData.images[0].url;
-
-            const musicData = await Music.create({
-              title: req.body.songTitle,
-              artist_id: artist.id,
-              album: req.body.albumName,
-              genre: req.body.genre,
-              albumImg: albumArtUrl,
-            });
-
-            console.log("bananas data", musicData);
-            res.status(200).json(musicData);
-          }
-        } else {
-          res.status(400).send("Couldn't find album");
-        }
-      }
-      // }
+      console.log("Posted Music Data", musicData);
+      res.status(200).json(musicData);
+    } else {
+      console.log("Song already in Database", existingSong);
+      res.status(200).json(existingSong);
     }
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
+
+// const existingAlbum = await Music.findOne({
+//   where: {
+//     album: req.bodyalbumName,
+//     artist_id: artist.id,
+//   },
+// });
+
+// if (existingAlbum) {
+//   const musicData = await Music.create({
+//     title: req.body.songTitle,
+//     artist_id: artist.id,
+//     album: existingAlbum.name,
+//     genre: artist.genre,
+//     albumImg: existingAlbum.albumImg,
+//   });
+
+//   console.log("bananas data", musicData);
+//   res.status(200).json(musicData);
+// } else {
+//     const albumName = req.body.albumName;
+//     const searchEndpoint = `https://api.spotify.com/v1/search?q=${encodeURIComponent(
+//       artistName
+//     )}&type=artist`;
+//     const token = req.session.spotAccessToken;
+
+//     let response = await fetch(searchEndpoint, {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//     });
+//     // Getting artist id
+//     if (response.ok) {
+//       const data = await response.json();
+//       const artistId = data.artists.items[0].id;
+
+//       const artistAlbumsEndpoint = `https://api.spotify.com/v1/artists/${artistId}/albums`;
+//       response = await fetch(artistAlbumsEndpoint, {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+
+//       if (response.ok) {
+//         const albumData = await response.json();
+//         // Get the album that matches the albumName parameter
+//         console.log(albumData);
+//         let albumId = null;
+
+//         for (let i = 0; i < albumData.items.length; i++) {
+//           if (
+//             albumData.items[i]["name"].toLowerCase() === albumName.toLowerCase()
+//           ) {
+//             albumId = albumData.items[i]["id"];
+//             console.log(albumId);
+//             break;
+//           }
+//         }
+
+//         if (albumId) {
+//           const albumEndpoint = `https://api.spotify.com/v1/albums/${albumId}`;
+//           response = await fetch(albumEndpoint, {
+//             method: "GET",
+//             headers: {
+//               "Content-Type": "application/json",
+//               Authorization: `Bearer ${token}`,
+//             },
+//           });
+
+//           if (response.ok) {
+//             const albumData = await response.json();
+//             const albumArtUrl = albumData.images[0].url;
+
+//             const musicData = await Music.create({
+//               title: req.body.songTitle,
+//               artist_id: artist.id,
+//               album: req.body.albumName,
+//               genre: req.body.genre,
+//               albumImg: albumArtUrl,
+//             });
+
+//             console.log("bananas data", musicData);
+//             res.status(200).json(musicData);
+//           }
+//         } else {
+//           res.status(400).send("Couldn't find album");
+//         }
+//       }
+//       // }
+//     }
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// });
 
 // ------------------------------------
 
