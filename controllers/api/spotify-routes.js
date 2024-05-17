@@ -1,6 +1,7 @@
 // Import the necessary modules.
 require("dotenv").config();
 const router = require("express").Router();
+const { response } = require("express");
 const SpotifyWebApi = require("spotify-web-api-node");
 
 // Initialize the Spotify API with credentials from environment variables.
@@ -207,6 +208,26 @@ router.get("/albums/:artistName/:albumName", async (req, res) => {
       response.statusText
     );
     res.send(`Error: ${(response.status, response.statusText)}`);
+  }
+});
+
+// 
+router.get("")
+
+// tracks get route
+router.get("/tracks", async (req, res) => {
+  try {
+    const recentlyPlayedTracksData = await spotifyApi.getMyRecentlyPlayedTracks({
+      limit: 5
+    });
+
+    console.log("Your 5 most recently played tracks are:");
+    recentlyPlayedTracksData.body.items.forEach(item => console.log(item.track));
+
+    res.send(recentlyPlayedTracksData.body.items);
+  } catch (error) {
+    console.error('Something went wrong!', error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
