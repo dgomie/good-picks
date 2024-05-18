@@ -136,6 +136,7 @@ async function setRecentlyPlayed(){
   recentlyListenedList.appendChild(recentListItem);
 }
 
+//fav artist modal
 window.addEventListener("submit", function (event) {
   if (event.target.matches("#artistFormID")){
     event.preventDefault();
@@ -173,6 +174,7 @@ window.addEventListener("submit", function (event) {
   }
 })
 
+// fav song modal
 window.addEventListener("submit", function (event) {
   if (event.target.matches("#songFormID")){
     if (event.target.matches("#songFormID")){
