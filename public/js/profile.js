@@ -28,6 +28,7 @@ async function setArtistImage(artistName) {
     artistList.appendChild(listItem);
     listItem.appendChild(deleteBtn); //appending
   }
+  
  // delete an artist event listener
  deleteBtn.addEventListener('click', async () => {
   const response = await fetch(`/api/music/artist/${id}`, {
@@ -135,3 +136,69 @@ async function setRecentlyPlayed(){
   recentlyListenedList.appendChild(recentListItem);
 }
 
+window.addEventListener("submit", function (event) {
+  if (event.target.matches("#artistFormID")){
+    event.preventDefault();
+
+    artistCloseBtn.addEventListener("click", clearInput);
+
+    const favArtistInput = document.getElementById("favArtistInput").value.trim();
+
+    fetch(`/api/spotify/artist/${encodeURIComponent(favArtistInput)}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const artistName = data.artists.items[0].name;
+      const artistId = data.artists.items[0].id;
+      const artistImg = data.artists.items[0].images[0].url;
+
+      return {
+        artistName: artistName,
+        artistId: artistId,
+        artistImg: artistImg,
+      };
+    })
+    .then(({ artistName, artistId, artistImg }) => {
+      return this.fetch("/api/artists", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          artistName: artistName,
+          artistId: artistId,
+          artistImg: artistImg,
+        }),
+      })
+    })
+  }
+})
+
+window.addEventListener("submit", function (event) {
+  if (event.target.matches("#songFormID")){
+    if (event.target.matches("#songFormID")){
+      event.preventDefault();
+
+      songCloseBtn.addEventListener("click", clearInput);
+
+      const favSongInput = document.getElementById("favSongInput").value.trim();
+      const songArtistInput = document.getElementById("favSongArtistInput").value.trim();
+
+      fetch(`/api/spotify/artist/${encodeURIComponent(songArtistInput)}/${encodeURIComponent(favSongInput)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const artistName = ;
+        const artistId = ;
+        const songName = ;
+      })
+    }
+  }
+})
+
+
+const clearArtistInput = () => {
+  document.getElementById("favArtistInput").value = "";
+};
+const clearSongInput = () => {
+  document.getElementById("favSongInput").value = "";
+  document.getElementById("favSongArtistInput").value = "";
+};
