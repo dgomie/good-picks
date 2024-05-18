@@ -41,7 +41,7 @@ window.addEventListener("submit", function (event) {
         };
       })
       .then(({ artistName, artistId, songName, albumName, albumImgUrl }) => {
-        fetch("/api/artists", {
+        return fetch("/api/artists", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -50,11 +50,10 @@ window.addEventListener("submit", function (event) {
             artistName: artistName,
             artistId: artistId,
           }),
-        });
-
-        return { artistName, artistId, songName, albumName, albumImgUrl };
+        })
+        .then(() => ({ artistName, songName, albumName, albumImgUrl }));
       })
-      .then(({ artistName, artistId, songName, albumName, albumImgUrl }) => {
+      .then(({ artistName, songName, albumName, albumImgUrl }) => {
         fetch("/api/music", {
           method: "POST",
           headers: {
@@ -88,7 +87,7 @@ window.addEventListener("submit", function (event) {
         .then((response) => response.json())
         .then((data) => {
           console.log("POST request success:", data);
-          // location.reload();
+          location.reload();
       })
         .catch((error) => {
           console.error("Error:", error);
