@@ -27,7 +27,11 @@ Rating.init(
         references: {
             model: 'music',
             key: 'id'
-        }
+        },
+        },
+        created_at: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         }
     },
     {
@@ -36,6 +40,12 @@ Rating.init(
         freezeTableName: true,
         underscored: true,
         modelName: 'rating'
+        // indexes: [
+        //     {
+        //       unique: true,
+        //       fields: ['user_id', 'music_id']
+        //     }
+        //   ]
     }
 );
 

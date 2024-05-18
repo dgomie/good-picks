@@ -1,0 +1,41 @@
+<div
+  class="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-clip-border text-gray-700 shadow-none bg-slate-300 m-2 p-2">
+  <div
+    class="relative flex items-center gap-4 pt-0 pb-8 mx-0 mt-4 overflow-hidden text-gray-700 shadow-none rounded-xl bg-clip-border">
+    {{!-- user profile image --}}
+    <img
+      src="/images/alphabet/{{this.user.profileImg}}-letter.512x512.png" 
+      onerror="this.onerror=null; this.src='/images/alphabet/default-letter.512x512.png';"
+      alt=""
+      
+      class="relative inline-block h-[48px] w-[48px] !rounded-full  object-cover object-center ml-1" />
+    <div class="flex w-full flex-col gap-0.5">
+        <div class="flex items-center justify-between">
+        {{!-- username --}}
+        <p
+          class="font-sans text-l antialiased leading-snug tracking-normal text-blue-gray-100">
+          {{this.user.name}}
+        </p>
+        </div>
+      <div class="flex items-center justify-between">
+        {{!-- song title --}}
+        <h5
+          class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+          {{this.music.title}}
+        </h5>
+        {{!-- star rating --}}
+        <div class="flex items-center gap-0 mr-4 ml-1 text-md">
+        {{generateStars this.rating}}
+        </div>
+      </div>
+      {{!-- song artist --}}
+      <p class="block font-sans text-base antialiased font-light leading-relaxed text-blue-gray-900">
+        {{this.music.artist.name}}
+      </p>
+    </div>
+  </div>
+  <div id="albumImagesContainer" class="p-0 mb-6">
+    {{!-- album art --}}
+  <img src="{{{this.music.albumImg}}}" alt="{{this.music.album}} album art by {{this.music.artist.name}}" onerror="this.onerror=null; this.src='/images/missing-album.jpg';">
+  </div>
+</div>  

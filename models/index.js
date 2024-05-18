@@ -1,7 +1,45 @@
 const User = require('./User');
-// changed the import statement to match the actual file name
-const Music = require('./Music');
-// I'm iffy about this one because it wasn't working with the actual file name when it was uppercase
-const Rating = require('./rating'); // Fix: Change the import statement to match the actual file name
+const Artist = require('./artist')
+const Music = require('./music');
+const Rating = require('./rating'); 
 
-module.exports = { User, Music, Rating};
+
+
+// User.js
+User.hasMany(Rating, {
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE'
+});
+
+
+  // Artist has many Music
+  Artist.hasMany(Music, {
+    foreignKey: 'artist_id',
+    onDelete: "CASCADE"
+  });
+
+  Music.belongsTo(Artist, {
+    foreignKey: 'artist_id', // matches the field defined in Music model
+    onDelete: "CASCADE", 
+  });
+  
+
+// Music.js
+Music.hasMany(Rating, {
+    foreignKey: 'music_id',
+    onDelete: 'CASCADE'
+});
+
+// Rating.js
+Rating.belongsTo(User, {
+    foreignKey: 'user_id'
+});
+
+Rating.belongsTo(Music, {
+    foreignKey: 'music_id'
+});
+
+
+
+
+module.exports = { User, Music, Rating, Artist};

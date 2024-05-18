@@ -23,6 +23,9 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5",
+    "spotify-web-api-node": "^5.0.2"
+  },
+  "devDependencies": {
     "tailwindcss": "^3.4.3"
   }
 }

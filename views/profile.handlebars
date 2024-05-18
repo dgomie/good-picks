@@ -1,19 +1,45 @@
-<div class="flex">
-    <!-- change username to correct -->
-    <div class="profile-user text-left mb-8 ml-8 w-3/4"><strong>{{log username}}{{username}}'s Profile</strong></div>
+<div class="container max-w-full">
+    <div class="profile-picture ml-8">
+        <img class="w-12 h-12 mb-4 ml-12 rounded-full" src="/images/alphabet/{{profileImg}}-letter.512x512.png"
+            alt="user photo" onerror="this.onerror=null; this.src='/images/alphabet/default-letter.512x512.png';">
+    </div>
 </div>
-<div class="flex">
+<div class="profile-user text-left mb-8 ml-14 w-3/4"><strong>{{username}}'s Profile</strong></div>
+<div class="flex justify-center">
     <aside class="flex sidebar w-1/4">
-        <section class="box-border h-40 p-4 border-2 text-left border-2 border-yellow-200 border-opacity-100 mb-8 rounded bg-yellow-50 ml-8 h-full shadow-lg">Currently Listening to:</section>
+        <section
+            class="text-blue-gray-100 font-sans text-l box-border max-h-screen h-40 p-4 border-2 text-left border-2 border-slate-900 border-opacity-100 mb-8 rounded bg-slate-300 ml-2 h-full shadow-lg">
+            <strong>Recently Listened to:</strong>
+            <ul class="recently-listened">
+                {{!-- <li><img class="w-16 h-16  p-2 rounded-full" src="/images/dev-images/album-covers/album3.jpeg"><p>song name</p></li>
+                <li><img class="w-16 h-16  p-2 rounded-full" src="/images/dev-images/album-covers/album4.jpeg"><p>song name</p></li> --}}
+            </ul>
+        </section>
     </aside>
     <div class="flex flex-col w-3/4 ml-8">
-        <div class="text-center border-2 border-yellow-200 border-opacity-100 p-4 mb-8 rounded bg-yellow-50 shadow-lg">Favorite artists:
-            <ul class="artist-list">
+        <div
+            class="text-center text-blue-gray-100 font-sans text-l border-2 border-slate-900 border-opacity-100 p-4 mb-8 rounded bg-slate-300 shadow-lg">
+            <strong>{{username}}'s favorite artists:</strong>
+            <ul class="artist-list divide-y divide-slate-900">
+
+                {{!-- <li><img class="w-32 h-32  p-2.5" src="/images/dev-images/artist-images/artist1.jpeg">Dominic Fike</li>
+                <li><img class="w-32 h-32  p-2.5" src="/images/dev-images/artist-images/artist2.jpeg">The Yussef Dayes Experience</li> --}}
+
             </ul>
         </div>
-        <div class="text-center border-2 border-yellow-200 border-opacity-100 p-4 mb-8 rounded bg-yellow-50 shadow-lg">Favorite songs:
-            <ul class="song-list">
+        <div
+            class="text-center font-sans text-l antialiased leading-snug tracking-normal text-blue-gray-100 border-2 border-slate-900 border-opacity-100 p-4 mb-8 rounded bg-slate-300 shadow-lg">
+            <strong>{{username}}'s favorite songs:</strong>
+            <ul class="song-list divide-y divide-slate-900">
+                {{!-- <li class="list-item"><img class="w-32 h-32  p-2.5" src="images/dev-images/album-covers/album1.jpeg"><p>Ant Pile</p>
+                </li>
+
+                <li class="list-item"><img class="w-32 h-32  p-2.5" src="/images/dev-images/album-covers/album2.jpeg">
+                <p>Self Care</p>
+                </li> --}}
             </ul>
         </div>
     </div>
 </div>
+
+<script src="/js/profile.js"></script>

@@ -22,21 +22,23 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    req.session.save(() => {
-      req.session.userId = userData.id;
-      req.session.loggedIn = true;
-      req.session.username = userData.name
+  req.session.userId = userData.id;
+  req.session.loggedIn = true;
+  req.session.username = userData.name;
+  req.session.profileImg = userData.profileImg;
+  req.session.email = userData.email;
 
-      res.render('main', {
-        loggedIn: req.session.loggedIn,
-        name: req.session.username
-      });
-
+  await req.session.save(err => {
+    if (err) {
+      // handle error
+      res.status(500).json(err);
+    } else {
       res.json({ user: userData, message: "You are now logged in!" });
-    });
-  } catch (err) {
-    res.status(400).json(err);
-  }
+    }
+  });
+} catch (err) {
+  res.status(400).json(err);
+}
 });
 
 router.post("/logout", (req, res) => {
@@ -66,6 +68,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get user by id
+router.get("/:id", async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.params.id, {
+      attributes: {
+        exclude: ["password"],
+      },
+    });
+    res.status(200).json(userData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // create new user
 router.post("/", async (req, res) => {
   try {
@@ -75,20 +91,46 @@ router.post("/", async (req, res) => {
       password: req.body.password,
     });
 
+    const userData = await User.findOne({ where: { email: req.body.email } });
+
     req.session.save(() => {
+      req.session.userId = userData.id;
       req.session.loggedIn = true;
-      req.session.username = newUser.name;
-      
-      res.render('main', {
-        loggedIn: req.session.loggedIn,
-        username: req.session.username,
-      });
+      req.session.username = userData.name;
+      req.session.profileImg = userData.profileImg;
+      req.session.email = userData.email;
 
       res.status(200).json(newUser);
     });
   } catch (err) {
+    // add response for why error was caused: user already exists/ email already registered
     res.status(400).json(err);
   }
 });
+
+// delete route
+router.delete("/:id", async (req, res) => {
+  console.log('deleting user', req.session.userId, req.params.id)
+  try {
+    const deleteUser = await User.destroy({
+      where: {
+        id: req.session.userId,
+      }
+    });
+    console.log(req.session)
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.clearCookie('connect.sid'); // replace 'session-cookie-name' with the name of your session cookie
+        console.log('session ended')
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 
 module.exports = router;
