@@ -138,17 +138,4 @@ router.get("/music", (req, res) => {
   res.render("music");
 });
 
-
-// redirect page for spotify authorization
-// router.get("/redirect", (req, res) => {
-//   if (req.session.loggedIn & req.session.spotAccessToken) {
-//     res.redirect("/dashboard")
-//   } else if (req.session.loggedIn) {
-//     res.redirect("/api/spotify/login")
-//   } else {
-//     res.send("Error loggin in")
-//   }
-// })
-
-
 module.exports = router;
