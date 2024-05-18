@@ -88,7 +88,7 @@ router.get("/dashboard", async (req, res) => {
 router.get("/charts", async (req, res) => {
   try {
     const dbRatingData = await Rating.findAll({
-      attributes: ['Music.id', [Sequelize.fn('AVG', Sequelize.col('rating')), 'averageRating']],
+      attributes: ['music.id', [Sequelize.fn('AVG', Sequelize.col('rating')), 'averageRating']],
       include: [
         {
           model: Music,
@@ -101,7 +101,7 @@ router.get("/charts", async (req, res) => {
           ]
         }
       ],
-      group: ['Music.id', 'Music.title', 'Music.album', 'Music->Artist.name'],
+      group: ['music.id', 'music.title', 'music.album', 'music->artist.name'],
       order: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'DESC']]
     })
     const ratings = dbRatingData.map((rating) => rating.get({ plain: true }))
@@ -131,42 +131,6 @@ router.get("/profile", async (req, res) => {
 
 router.get("/logout", (req, res) => {
   res.render("logout");
-});
-
-
-router.get("/charts", async (req, res) => {
-  try {
-    const dbRatingData = await Rating.findAll({
-      attributes: ['Music.id', [Sequelize.fn('AVG', Sequelize.col('rating')), 'averageRating']],
-      include: [
-        {
-          model: User,
-          attributes: ["name"]
-        },
-        {
-          model: Music,
-          attributes: ["title", "album"],
-          include: [
-            {
-              model: Artist,
-              attributes: ["name"]
-            }
-          ]
-        }
-      ],
-      group: ['Music.id'],
-      order: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'DESC']]
-    })
-    const ratings = dbRatingData.map((rating) => rating.get({ plain: true }))
-    res.render("charts", {
-      title: "Charts",
-      ...req.session,
-      ratings
-    })
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err)
-  }
 });
 
 
