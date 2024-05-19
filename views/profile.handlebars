@@ -1,3 +1,4 @@
+<div class="giantContainer justify-center sm:grid-rows-1">
 <div class="container max-w-full">
     <div class="profile-picture ml-8">
         <img class="w-12 h-12 mb-4 ml-12 rounded-full" src="/images/alphabet/{{profileImg}}-letter.512x512.png"
@@ -6,8 +7,8 @@
 </div>
 
 <div class="profile-user text-left mb-8 ml-14 w-3/4"><strong>{{username}}'s Profile</strong></div>
-<div class="flex justify-center">
-    <aside class="flex sidebar w-1/4 ">
+<div class="flex justify-center flex-col sm:flex-row">
+    <aside class="flex sidebar w-full sm:w-1/4 mb-8 sm:mb-0 sm:mr-2 justify-center">
         <section
             class="text-gray-700 font-sans text-l box-border max-h-screen h-40 p-4 border-2 text-left border-2 border-slate-900 border-opacity-100 mb-8 rounded bg-slate-300 ml-2 h-full shadow-lg">
             <strong>Recently Rated:</strong>
@@ -40,5 +41,6 @@
                 </ul>
         </div>
     </div>
+</div>
 </div>
      <script src="/js/profile.js"></script>
