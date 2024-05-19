@@ -18,6 +18,11 @@ window.addEventListener("submit", function (event) {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        
+        if (data.body.tracks.items.length === 0) {
+          console.log("Can't find song")
+          document.querySelector("#song-warning").classList.remove("hidden");
+        }
         const albumId = data.body.tracks.items[0].album.id;
         const albumName = data.body.tracks.items[0].album.name;
         const albumImgUrl = data.body.tracks.items[0].album.images[0].url;
