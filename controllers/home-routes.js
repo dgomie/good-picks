@@ -46,7 +46,6 @@ router.get("/settings", (req, res) => {
 });
 
 //user dashboard
-// TODO: put back withAuth
 router.get("/dashboard",withAuth, async (req, res) => {
   console.log(req.session);
 
@@ -119,7 +118,6 @@ router.get("/charts", async (req, res) => {
 });
 
 // user profile
-// TODO: put back withAuth
 router.get("/profile",withAuth, async (req, res) => {
   // const dbArtistData = await Artist.findAll();
   // const artists = dbArtistData.map((artist) => artist.get({ plain: true }));
@@ -148,8 +146,7 @@ router.get("/profile",withAuth, async (req, res) => {
   const artistData = dbRatingData.map(rating => ({
     url: rating.music.artist.artistImg,
   artistName: rating.music.artist.name
-})); // access 'id' here
-  // console.log("Artist IDs", artistIds)
+}));
 
   const songData = dbRatingData.map(rating => ({
     url: rating.music.albumImg,
