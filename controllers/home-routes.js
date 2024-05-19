@@ -127,7 +127,7 @@ router.get("/profile",withAuth, async (req, res) => {
   const dbRatingData = await Rating.findAll({
     where: {
       user_id: userId,
-      rating: 5
+      rating: 5,
     },
     include: [
       {
@@ -153,12 +153,38 @@ router.get("/profile",withAuth, async (req, res) => {
     songName: rating.music.title
   }))
 
+  const dbRecentlyRated = await Rating.findAll({
+    where: {
+      user_id: userId,
+    },
+    include: [
+      {
+        model: Music,
+        attributes: ["title", "album", "artist_id", "albumImg"],
+        include: [
+          {
+            model: Artist,
+            attributes: ["name", "artistImg"]
+          }
+        ]
+      }
+    ],
+    order: [["created_at", "DESC"]],
+    limit: 5
+  });
+
+  const recentlyRatedData = dbRecentlyRated.map(rating => ({
+    url: rating.music.albumImg,
+    songName: rating.music.title,
+    rating: rating.rating
+  }))
 
   res.render("profile", {
     title: "Profile",
     ...req.session,
     artistImgUrl: artistData,
     albumImgUrl: songData,
+    recentlyRatedData: recentlyRatedData
   });
   });
 
