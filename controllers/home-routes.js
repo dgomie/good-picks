@@ -102,7 +102,8 @@ router.get("/charts", async (req, res) => {
         }
       ],
       group: ['music.id', 'music.title', 'music.album', 'music->artist.name'],
-      order: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'DESC']]
+      order: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'DESC']],
+      limit: 20
     })
     const ratings = dbRatingData.map((rating) => rating.get({ plain: true }))
     res.render("charts", {
