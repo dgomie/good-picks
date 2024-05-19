@@ -3,6 +3,7 @@ const { User, Music, Rating, Artist } = require("../models");
 const { Sequelize } = require('sequelize');
 const withAuth = require("../utils/auth");
 
+
 // homepage
 router.get("/", (req, res) => {
   if (req.session.loggedIn) {
@@ -154,12 +155,14 @@ router.get("/profile",withAuth, async (req, res) => {
     url: rating.music.albumImg,
     songName: rating.music.title
   }))
-    res.render("profile", {
-      title: "Profile",
-      ...req.session,
-      artistImgUrl: artistData,
-      albumImgUrl: songData
-    });
+
+
+  res.render("profile", {
+    title: "Profile",
+    ...req.session,
+    artistImgUrl: artistData,
+    albumImgUrl: songData,
+  });
   });
 
 router.get("/logout", (req, res) => {

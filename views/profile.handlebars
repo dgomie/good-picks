@@ -12,7 +12,9 @@
             class="text-blue-gray-100 font-sans text-l box-border max-h-screen h-40 p-4 border-2 text-left border-2 border-slate-900 border-opacity-100 mb-8 rounded bg-slate-300 ml-2 h-full shadow-lg">
             <strong>Recently Listened to:</strong>
             <ul class="recently-listened">
-    
+                {{#each recentlyPlayedTracks}}
+                {{> recentlisten}}
+                {{/each}}
             </ul>
         </section>
     </aside>
@@ -21,7 +23,7 @@
             class="text-center text-blue-gray-100 font-sans text-l border-2 border-slate-900 border-opacity-100 p-4 mb-8 rounded bg-slate-300 shadow-lg">
             <strong>{{username}}'s top rated artists:</strong>
             {{!-- add overflow-x-scroll?? --}}
-            <ul class="artist-list flex"> 
+            <ul class="artist-list flex overflow-x-scroll"> 
                 {{#each artistImgUrl}}
                 {{> favartist}}
                 {{/each}}
@@ -30,7 +32,7 @@
         <div
             class="text-center font-sans text-l antialiased leading-snug tracking-normal text-blue-gray-100 border-2 border-slate-900 border-opacity-100 p-4 mb-8 rounded bg-slate-300 shadow-lg">
             <strong>{{username}}'s top rated songs:</strong>
-                <ul class="song-list flex">
+                <ul class="song-list flex overflow-x-auto overflow-x-scroll">
                     {{#each albumImgUrl}}
                     {{> favsong}}
                     {{/each}}
