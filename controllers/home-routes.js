@@ -120,15 +120,47 @@ router.get("/charts", async (req, res) => {
 // user profile
 // TODO: put back withAuth
 router.get("/profile",withAuth, async (req, res) => {
-  const dbArtistData = await Artist.findAll();
-  const artists = dbArtistData.map((artist) => artist.get({ plain: true }));
-  console.log(artists)
-  res.render("profile", {
-    title: "Profile",
-    ...req.session,
-    artists
+  // const dbArtistData = await Artist.findAll();
+  // const artists = dbArtistData.map((artist) => artist.get({ plain: true }));
+  // console.log(artists)
+  const userId = req.session.userId// the user ID
+
+  const dbRatingData = await Rating.findAll({
+    where: {
+      user_id: userId,
+      rating: 5
+    },
+    include: [
+      {
+        model: Music,
+        attributes: ["title", "album", "artist_id", "albumImg"],
+        include: [
+          {
+            model: Artist,
+            attributes: ["name", "artistImg"]
+          }
+        ]
+      }
+    ]
   });
-});
+  
+  const artistData = dbRatingData.map(rating => ({
+    url: rating.music.artist.artistImg,
+  artistName: rating.music.artist.name
+})); // access 'id' here
+  // console.log("Artist IDs", artistIds)
+
+  const songData = dbRatingData.map(rating => ({
+    url: rating.music.albumImg,
+    songName: rating.music.title
+  }))
+    res.render("profile", {
+      title: "Profile",
+      ...req.session,
+      artistImgUrl: artistData,
+      albumImgUrl: songData
+    });
+  });
 
 router.get("/logout", (req, res) => {
   res.render("logout");
