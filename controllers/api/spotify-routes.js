@@ -225,22 +225,4 @@ router.get("/albums/:artistName/:albumName", async (req, res) => {
   }
 });
 
-
-// tracks get route
-router.get("/tracks", async (req, res) => {
-  try {
-    const recentlyPlayedTracksData = await spotifyApi.getMyRecentlyPlayedTracks({
-      limit: 5
-    });
-
-    console.log("Your 5 most recently played tracks are:");
-    recentlyPlayedTracksData.body.items.forEach(item => console.log(item.track));
-
-    res.send(recentlyPlayedTracksData.body.items);
-  } catch (error) {
-    console.error('Something went wrong!', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
 module.exports = router;
