@@ -46,7 +46,7 @@ router.get("/settings", (req, res) => {
 
 //user dashboard
 // TODO: put back withAuth
-router.get("/dashboard", async (req, res) => {
+router.get("/dashboard",withAuth, async (req, res) => {
   console.log(req.session);
 
   try {
@@ -118,7 +118,7 @@ router.get("/charts", async (req, res) => {
 
 // user profile
 // TODO: put back withAuth
-router.get("/profile", async (req, res) => {
+router.get("/profile",withAuth, async (req, res) => {
   const dbArtistData = await Artist.findAll();
   const artists = dbArtistData.map((artist) => artist.get({ plain: true }));
   console.log(artists)
