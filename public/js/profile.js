@@ -47,9 +47,6 @@ artistArray.forEach((artist) => {
 setArtistImage(artist);
 });
 
-// song array for favorite songs
-let songArray = ["Hey Jude", "Ant Pile", "Money Trees"]
-
 // fetches favorite song images and names
 async function fetchSong(trackName) {
 const response = await fetch(`/api/spotify/tracks/${trackName}`, {
@@ -103,104 +100,10 @@ deleteBtn.addEventListener('click', async () => {
 }
 
 // make a function to get recently played
-async function getRecentlyPlayed(req) {
-  try {
-    const response = await fetch(`/tracks`, {
-      method: 'GET',
-      headers: { 'Authorization': `Bearer ${req.session.spotAccessToken}` }
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      const songName = data[0].track.name; // Access the name of the first track
-      console.log("RESPONSE", data);
-      return {
-        name: songName
-      };
-    } else {
-      console.error('Cannot get tracks');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
-
-//setting the recently played
-async function setRecentlyPlayed(){
-  const recentlyListenedList = document.querySelector('.recently-listened');
-  const recentSongInfo = await getRecentlyPlayed(trackName);
-  const recentListItem = document.createElement('li');
-
-  recentListItem.innerHTML = `<h2>${recentSongInfo.name}></h2><img class="w-16 h-16 p-2 rounded-full" src="${songInfo.image}" width=300>`
-
-  recentlyListenedList.appendChild(recentListItem);
-}
-
-//fav artist modal
-window.addEventListener("submit", function (event) {
-  if (event.target.matches("#artistFormID")){
-    event.preventDefault();
-
-    artistCloseBtn.addEventListener("click", clearInput);
-
-    const favArtistInput = document.getElementById("favArtistInput").value.trim();
-
-    fetch(`/api/spotify/artist/${encodeURIComponent(favArtistInput)}`)
-    .then((response) => response.json())
-    .then((data) => {
-      const artistName = data.artists.items[0].name;
-      const artistId = data.artists.items[0].id;
-      const artistImg = data.artists.items[0].images[0].url;
-
-      return {
-        artistName: artistName,
-        artistId: artistId,
-        artistImg: artistImg,
-      };
-    })
-    .then(({ artistName, artistId, artistImg }) => {
-      return this.fetch("/api/artists", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          artistName: artistName,
-          artistId: artistId,
-          artistImg: artistImg,
-        }),
-      })
-    })
-  }
-})
-
-// fav song modal
-window.addEventListener("submit", function (event) {
-  if (event.target.matches("#songFormID")){
-    if (event.target.matches("#songFormID")){
-      event.preventDefault();
-
-      songCloseBtn.addEventListener("click", clearInput);
-
-      const favSongInput = document.getElementById("favSongInput").value.trim();
-      const songArtistInput = document.getElementById("favSongArtistInput").value.trim();
-
-      fetch(`/api/spotify/artist/${encodeURIComponent(songArtistInput)}/${encodeURIComponent(favSongInput)}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const artistName = ;
-        const artistId = ;
-        const songName = ;
-      })
-    }
-  }
-})
-
-
-const clearArtistInput = () => {
-  document.getElementById("favArtistInput").value = "";
-};
-const clearSongInput = () => {
-  document.getElementById("favSongInput").value = "";
-  document.getElementById("favSongArtistInput").value = "";
-};
+// async function getRecentlyPlayed(req) {
+//   try {
+//     const response = await fetch(`/tracks`, {
+//       method: 'GET',
+//       headers: { 'Authorization': `Bearer ${req.session.spotAccessToken}` }
+    
+//     });
