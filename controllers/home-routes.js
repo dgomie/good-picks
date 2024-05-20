@@ -46,7 +46,7 @@ router.get("/settings", (req, res) => {
 });
 
 //user dashboard
-router.get("/dashboard",withAuth, async (req, res) => {
+router.get("/dashboard", withAuth, async (req, res) => {
   console.log(req.session);
 
   try {
@@ -118,7 +118,7 @@ router.get("/charts", async (req, res) => {
 });
 
 // user profile
-router.get("/profile",withAuth, async (req, res) => {
+router.get("/profile", withAuth, async (req, res) => {
   // const dbArtistData = await Artist.findAll();
   // const artists = dbArtistData.map((artist) => artist.get({ plain: true }));
   // console.log(artists)
@@ -142,11 +142,11 @@ router.get("/profile",withAuth, async (req, res) => {
       }
     ]
   });
-  
+
   const artistData = dbRatingData.map(rating => ({
     url: rating.music.artist.artistImg,
-  artistName: rating.music.artist.name
-}));
+    artistName: rating.music.artist.name
+  }));
 
   const songData = dbRatingData.map(rating => ({
     url: rating.music.albumImg,
@@ -186,7 +186,71 @@ router.get("/profile",withAuth, async (req, res) => {
     albumImgUrl: songData,
     recentlyRatedData: recentlyRatedData
   });
+});
+
+router.get("/profile/:userName", async (req, res) => {
+  const userName = req.params.userName;
+  const userData = await User.findOne({ where: { name: userName } })
+  const userId = userData.id
+  const dbRatingData = await Rating.findAll({
+    where: {
+      user_id: userId,
+      rating: 5,
+    },
+    include: [
+      {
+        model: Music,
+        attributes: ["title", "album", "artist_id", "albumImg"],
+        include: [
+          {
+            model: Artist,
+            attributes: ["name", "artistImg"]
+          }
+        ]
+      }
+    ]
   });
+  const artistData = dbRatingData.map(rating => ({
+    url: rating.music.artist.artistImg,
+    artistName: rating.music.artist.name
+  }));
+  const songData = dbRatingData.map(rating => ({
+    url: rating.music.albumImg,
+    songName: rating.music.title
+  }))
+  const dbRecentlyRated = await Rating.findAll({
+    where: {
+      user_id: userId,
+    },
+    include: [
+      {
+        model: Music,
+        attributes: ["title", "album", "artist_id", "albumImg"],
+        include: [
+          {
+            model: Artist,
+            attributes: ["name", "artistImg"]
+          }
+        ]
+      }
+    ],
+    order: [["created_at", "DESC"]],
+    limit: 5
+  });
+  const recentlyRatedData = dbRecentlyRated.map(rating => ({
+    url: rating.music.albumImg,
+    songName: rating.music.title,
+    rating: rating.rating
+  }))
+  res.render("profile", {
+    title: "Profile",
+    profileImg: userData.profileImg,
+    username: userName,
+    artistImgUrl: artistData,
+    albumImgUrl: songData,
+    recentlyRatedData: recentlyRatedData
+  });
+});
 
 router.get("/logout", (req, res) => {
   res.render("logout");
