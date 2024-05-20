@@ -26,7 +26,7 @@ const signupFormHandler =  (event) => {
       })
     }
   } else {
-    alert("passwords must match");
+    document.querySelector("#password-warning").classList.remove("hidden");
   };
 };
 
