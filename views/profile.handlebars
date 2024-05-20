@@ -1,46 +1,61 @@
-<div class="giantContainer justify-center sm:grid-rows-1">
-<div class="container max-w-full">
-    <div class="profile-picture ml-8">
-        <img class="w-12 h-12 mb-4 ml-12 rounded-full" src="/images/alphabet/{{profileImg}}-letter.512x512.png"
-            alt="user photo" onerror="this.onerror=null; this.src='/images/alphabet/default-letter.512x512.png';">
+<div class="container mx-auto my-5 p-5">
+    <div class="md:flex no-wrap md:-mx-2">
+        <!-- Left Side -->
+        <div class="w-full md:w-3/12 md:mx-2">
+            <!-- Profile Card -->
+            <div class="p-3">
+                <div class="image">
+                    <div class="profile-picture flex flex-col items-center">
+                        <img class="w-32 h-32 mb-4 rounded-full" src="/images/alphabet/{{profileImg}}-letter.512x512.png" alt="user photo" onerror="this.onerror=null; this.src='/images/alphabet/default-letter.512x512.png';">
+                        <div class="text-white text-center w-full"><strong>{{username}}</strong></div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of profile card -->
+            <div class="my-4"></div>
+            <!-- Recently Rated Card -->
+            <div class="bg-slate-300 p-3 hover:shadow">
+                <section class="text-gray-700">
+                    <strong>Recently Rated:</strong>
+                    <ul class="recently-rated">
+                        {{#each recentlyRatedData}}
+                        {{> recentrated}}
+                        {{/each}}
+                    </ul>
+                </section>
+            </div>
+            <!-- End of Recently Rated Card -->
+        </div>
+        <!-- Right Side -->
+        <div class="w-full md:w-9/12 h-64">
+            <!-- Profile tab -->
+            <!-- Top Rated Artists Section -->
+            <div class="p-3 shadow-sm rounded-sm">
+                <div class="text-center text-gray-700 font-sans text-l border-2 border-slate-900 border-opacity-100 p-4 rounded bg-slate-300 shadow-lg">
+                    <strong>{{username}}'s Top Rated Artists:</strong>
+                    <ul class="artist-list flex overflow-x-scroll">
+                        {{#each artistImgUrl}}
+                        {{> favartist}}
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <!-- End of Top Rated Artists Section -->
+            <div class="my-4"></div>
+            <!-- Top Rated Songs Section -->
+            <div class="p-3 shadow-sm rounded-sm">
+                <div class="text-center font-sans text-l antialiased leading-snug tracking-normal text-gray-700 border-2 border-slate-900 border-opacity-100 p-4 rounded bg-slate-300 shadow-lg">
+                    <strong>{{username}}'s Top Rated Songs:</strong>
+                    <ul class="song-list flex overflow-x-scroll">
+                        {{#each albumImgUrl}}
+                        {{> favsong}}
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <!-- End of Top Rated Songs Section -->
+        </div>
+        <!-- End of Right Side -->
     </div>
 </div>
-
-<div class="profile-user text-left mb-8 ml-14 w-3/4"><strong>{{username}}'s Profile</strong></div>
-<div class="flex justify-center flex-col sm:flex-row">
-    <aside class="flex sidebar w-full sm:w-1/4 mb-8 sm:mb-0 sm:mr-2 justify-center">
-        <section
-            class="text-gray-700 font-sans text-l box-border max-h-screen h-40 p-4 border-2 text-left border-2 border-slate-900 border-opacity-100 mb-8 rounded bg-slate-300 ml-2 h-full shadow-lg">
-            <strong>Recently Rated:</strong>
-            <ul class="recently-rated">
-                {{#each recentlyRatedData}}
-                {{> recentrated}}
-                {{/each}}
-            </ul>
-        </section>
-    </aside>
-    <div class="flex flex-col w-3/4 ml-8">
-        <div
-            class="text-center text-gray-700 font-sans text-l border-2 border-slate-900 border-opacity-100 p-4 mb-8 rounded bg-slate-300 shadow-lg">
-            <strong>{{username}}'s top rated artists:</strong>
-            {{!-- top rated artists gets from database if an artists song was rated 5 stars --}}
-            <ul class="artist-list flex overflow-x-scroll"> 
-                {{#each artistImgUrl}}
-                {{> favartist}}
-                {{/each}}
-                </ul>
-        </div>
-        <div
-            class="text-center font-sans text-l antialiased leading-snug tracking-normal text-gray-700 border-2 border-slate-900 border-opacity-100 p-4 mb-8 rounded bg-slate-300 shadow-lg">
-            {{!-- top rated songs gets from database if a song was rated 5 stars --}}
-            <strong>{{username}}'s top rated songs:</strong>
-                <ul class="song-list flex overflow-x-auto overflow-x-scroll">
-                    {{#each albumImgUrl}}
-                    {{> favsong}}
-                    {{/each}}
-                </ul>
-        </div>
-    </div>
-</div>
-</div>
-     <script src="/js/profile.js"></script>
+<script src="/js/profile.js"></script>
