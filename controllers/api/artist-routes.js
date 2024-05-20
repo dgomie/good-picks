@@ -32,6 +32,7 @@ router.post("/", async (req, res) => {
     if (!existingArtist) {
       const response = await fetch(`http://localhost:3001/api/spotify/artist/${req.body.artistId}`);
       const artistData = await response.json()
+      console.log("artist data post route",artistData)
       const artistImgUrl = artistData.body.images[0].url;
       
       const newArtistData = await Artist.create({
