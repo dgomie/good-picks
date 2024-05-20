@@ -244,6 +244,7 @@ router.get("/profile/:userName", async (req, res) => {
   }))
   res.render("profile", {
     title: "Profile",
+    ...req.session,
     profileImg: userData.profileImg,
     username: userName,
     artistImgUrl: artistData,
