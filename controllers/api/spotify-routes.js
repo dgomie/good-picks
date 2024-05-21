@@ -95,7 +95,7 @@ router.get("/artist/:artistId", async (req, res) => {
   console.log('Artist information', artistData);
   res.status(200).json(artistData)
   } catch (error) {
-    res.send("error getting data")
+    res.status(500).json({ message: 'error getting data' });
   }
 })
 

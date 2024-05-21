@@ -4,7 +4,6 @@ const { User } = require("../../models");
 router.post("/login", async (req, res) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
-    console.log(userData)
 
     if (!userData) {
       res
@@ -45,7 +44,7 @@ router.post("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.clearCookie('connect.sid'); // replace 'session-cookie-name' with the name of your session cookie
-      console.log('session ended')
+  
       res.status(204).end();
     });
   } else {
@@ -110,18 +109,18 @@ router.post("/", async (req, res) => {
 
 // delete route
 router.delete("/:id", async (req, res) => {
-  console.log('deleting user', req.session.userId, req.params.id)
+ 
   try {
     const deleteUser = await User.destroy({
       where: {
         id: req.session.userId,
       }
     });
-    console.log(req.session)
+   
     if (req.session.loggedIn) {
       req.session.destroy(() => {
         res.clearCookie('connect.sid'); // replace 'session-cookie-name' with the name of your session cookie
-        console.log('session ended')
+        
         res.status(204).end();
       });
     } else {

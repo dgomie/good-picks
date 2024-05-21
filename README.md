@@ -1,15 +1,16 @@
 # Good Picks
 
+<img src="./public/images/goodpicks-screenshot.png">
+
 ##### Table of Contents
 
 [Description](#description)  
  [Installation](#installation)  
  [Usage](#usage)   
  [Deployed Site](#deployed-site)   
- [Contributions](#contributions)  
- [Tests](#tests)  
- [Questions](#questions)  
- [License](#license)
+ [Contributions](#contributions)   
+ [Project Contributors](#project-contributors)  
+ [Pitch Deck](#pitch-deck)  
 
 ## Description
 Good Picks is a web application designed to help users manage their favorite songs, albums, and artists. It provides a user-friendly interface to organize and retrieve music-related data efficiently.
@@ -17,75 +18,93 @@ Good Picks is a web application designed to help users manage their favorite son
 
 
 ## Installation
-Clone the repository:
-bash
-Copy code
-git clone https://github.com/yourusername/good-picks.git
-Navigate to the project directory:
-bash
-Copy code
+### Clone the repository:
+```
+git clone https://github.com/dgomie/good-picks.git
+```
+### Navigate to the project directory:
+```
 cd good-picks
-Install the required dependencies:
-bash
-Copy code
+```
+
+### Install the required dependencies:
+```
 npm install
-Set up the MySQL database:
-Create a database named music_library.
+```
+
+### Set up the MySQL database:
+
+Create a database named goodpicks_db.
 Import the provided SQL file to set up the initial database schema:
-bash
-Copy code
-mysql -u yourusername -p music_library < db/schema.sql
-Set up environment variables:
+```
+mysql -u yourusername -p goodpicks_db < db/schema.sql;
+```
+
+### Set up a Spotify Web Developer Account:
+Sign in to Spotify's web developer site and create up a new app. Spotify instructions can be found here:  
+
+https://developer.spotify.com/documentation/web-api
+
+### Set up environment variables:
+
 Create a .env file in the root directory and add the following:
-makefile
-Copy code
+```
 DB_HOST=your_db_host
 DB_USER=your_db_username
 DB_PASSWORD=your_db_password
-DB_NAME=music_library
+DB_NAME=goodpicks_db
+CLIENT_ID=your_spotify_client_id
+CLIENT_SECRET=your_spotify_client_secret
+CALLBACK_URL=your_spotify_callback_url
+```
 
+### Optional:  
+Seed database with placeholder data using
+```
+npm run seed
+```
 
 ## Usage
-Run the application:
-bash
-Copy code
+Start the server:
+```
 npm start
+```
+
+Open your web browser to http://localhost:3001
+
+Create a new account or use placeholder accounts to login to the site. Authorize Goodpicks access to Spotify account. Once authorized the full site will be accessible. 
+
 
 
 ## Deployed Site
-The deployed site can be accessed at Good Picks Deployed Site.
+Deployed application can be found at:  
+https://hidden-depths-01820-f84c3739770d.herokuapp.com/
 
 ## Contributions
-https://flowbite.com/docs/components/navbar/
-https://tailwindui.com/components/application-ui/forms/sign-in-forms
-https://flowbite.com/blocks/marketing/register/
-Photo by <a href="https://unsplash.com/@introspectivedsgn?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Erik Mclean</a> on <a href="https://unsplash.com/photos/yellow-round-plastic-round-table-9y1cTVKe1IY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-Photo by <a href="https://unsplash.com/@photowolf?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Joshua Olsen</a> on <a href="https://unsplash.com/photos/books-on-brown-wooden-shelf-fpxIIZewZBo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-https://iconduck.com/icons/311796/avatar-default-light
-https://iconduck.com/sets/material-letter-icons
-https://github.com/adanzweig/nodejs-spotify/blob/master/index.js
-  
+### Components and Design Resources
+
+- Navbar: Implemented using components from [Flowbite Navbar](https://flowbite.com/docs/components/navbar/).
+
+- Sign-in Forms: Utilized sign-in forms from [Tailwind UI](https://tailwindui.com/components/application-ui/forms/sign-in-forms).
+
+- Registration Form: Created with blocks from [Flowbite Marketing Register](https://flowbite.com/blocks/marketing/register/).
+
+### Image Credits
+### Icons
+- Avatar Icon: Sourced from [Iconduck Avatar Default Light](https://iconduck.com/icons/311796/avatar-default-light).
+
+- Material Letter Icons: Sourced from [Iconduck Material Letter Icons](https://iconduck.com/sets/material-letter-icons).
+
+### Code References
+- Spotify Authorization Flow: Based on the example provided by [Adan Zweig](https://github.com/adanzweig) in his [node-js-spotify repo](https://github.com/adanzweig/nodejs-spotify/blob/master/index.js).
 
 
-## Tests
-To run tests, use the following command:
-
-bash
-Copy code
-npm test
-
-
-## Contributors
+## Project Contributors
 - Kayla Freeman
 - Franciso Ortiz
 - Wayne Perry
 - Daniel Gomez
 
+## Pitch Deck
+[Canva Presentation](https://www.canva.com/design/DAGFhzaCXsM/cz4qv5v8KXCvTbWye7vdDQ/view?utm_content=DAGFhzaCXsM&utm_campaign=designshare&utm_medium=link&utm_source=editor)
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Your Name: your.email@example.com
-GitHub: https://github.com/yourusername
-License
-This project is licensed under the MIT License. See the LICENSE file for details.

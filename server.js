@@ -29,12 +29,15 @@ app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(routes);
-app.use((req, res, next) => {
-  res.status(404).render('404', {
-    ...req.session
-  }); // replace '404' and 'main' with your actual 404 page and layout names
-});
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening at localhost:3001'));
+  app.use(routes);
+
+  // 404 handler
+  app.use((req, res) => {
+    res.status(404).render('404', {
+      ...req.session
+    });
+  });
+
+  app.listen(PORT, () => console.log(`Now listening at localhost:3001`));
 });

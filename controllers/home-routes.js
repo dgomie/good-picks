@@ -47,7 +47,6 @@ router.get("/settings", (req, res) => {
 
 //user dashboard
 router.get("/dashboard", withAuth, async (req, res) => {
-  console.log(req.session);
 
   try {
     const dbRatingData = await Rating.findAll({
@@ -73,7 +72,6 @@ router.get("/dashboard", withAuth, async (req, res) => {
     });
     const ratings = dbRatingData.map((rating) => rating.get({ plain: true }));
 
-    console.log(ratings);
     res.render("dashboard", {
       title: "Dashboard",
       ...req.session,
