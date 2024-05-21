@@ -1,7 +1,7 @@
 <div class="container giantContainer max-w-full">
     <div class="header text-center justify-center">
 
-        <h2 class="p-5 text-center "><strong>Welcome {{ username }}</strong></h2>
+        <h2 class="p-3 text-center text-xl "><strong>Welcome {{ username }}</strong></h2>
 
     </div>
 
@@ -71,9 +71,9 @@
         </div>
     </div>
 </div> 
-    <div class="public-posts border-b-2 p-5 sm:ml-4 flex justify-center">
+<div class="public-posts border-b-2 p-5 flex justify-center">
     {{!-- add in users profile picture and add an each to get other users posts --}}
-    <ul id="feed" class="flex flex-col items-center mx-auto">
+    <ul id="feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center mx-auto">
         {{#each ratings}}
         {{> songcard}}
         {{/each}}
