@@ -24,3 +24,15 @@ Handlebars.registerHelper('roundAvg', function(averageRating) {
 
     return new Handlebars.SafeString(formatAvg);
   });
+
+  Handlebars.registerHelper('mod', function(v1, v2) {
+    return v1 % v2;
+  });
+  
+  Handlebars.registerHelper('eq', function(v1, v2) {
+    return v1 === v2;
+  });
+
+  Handlebars.registerHelper('inc', function(value) {
+    return parseInt(value) + 1;
+  });
