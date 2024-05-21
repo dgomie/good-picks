@@ -18,43 +18,62 @@ Good Picks is a web application designed to help users manage their favorite son
 
 
 ## Installation
-Clone the repository:
+### Clone the repository:
 ```
 git clone https://github.com/dgomie/good-picks.git
 ```
-Navigate to the project directory:
+### Navigate to the project directory:
 ```
 cd good-picks
 ```
 
-Install the required dependencies:
+### Install the required dependencies:
 ```
 npm install
 ```
 
-Set up the MySQL database:
+### Set up the MySQL database:
 
-Create a database named music_library.
+Create a database named goodpicks_db.
 Import the provided SQL file to set up the initial database schema:
 ```
-mysql -u yourusername -p music_library < db/schema.sql
+mysql -u yourusername -p goodpicks_db < db/schema.sql;
 ```
 
-Set up environment variables:
+### Set up a Spotify Web Developer Account:
+Sign in to Spotify's web developer site and create up a new app. Spotify instructions can be found here:  
+
+https://developer.spotify.com/documentation/web-api
+
+### Set up environment variables:
 
 Create a .env file in the root directory and add the following:
 ```
 DB_HOST=your_db_host
 DB_USER=your_db_username
 DB_PASSWORD=your_db_password
-DB_NAME=music_library
+DB_NAME=goodpicks_db
+CLIENT_ID=your_spotify_client_id
+CLIENT_SECRET=your_spotify_client_secret
+CALLBACK_URL=your_spotify_callback_url
+```
+
+### Optional:  
+Seed database with placeholder data using
+```
+npm run seed
 ```
 
 ## Usage
-Run the application:
-bash
-Copy code
+Start the server:
+```
 npm start
+```
+
+Open your web browser to http://localhost:3001
+
+Create a new account or use placeholder accounts to login to the site. Authorize Goodpicks access to Spotify account. Once authorized the full site will be accessible. 
+
 
 
 ## Deployed Site
