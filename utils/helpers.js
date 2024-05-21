@@ -36,3 +36,11 @@ Handlebars.registerHelper('roundAvg', function(averageRating) {
   Handlebars.registerHelper('inc', function(value) {
     return parseInt(value) + 1;
   });
+
+  Handlebars.registerHelper('isEven', function(value, options) {
+    if((value % 2) == 0) {
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  });
