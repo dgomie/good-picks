@@ -1,5 +1,5 @@
 <div
-  class="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-clip-border text-gray-700 shadow-none bg-slate-300 m-2 p-2"
+  class="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-clip-border text-gray-700 shadow-none bg-slate-300 m-2 p-2 overflow-hidden"
 >
   <div
     class="relative flex items-center gap-4 pt-0 pb-8 mx-0 mt-4 overflow-hidden text-gray-700 shadow-none rounded-xl bg-clip-border"
@@ -17,7 +17,7 @@
               src="/images/alphabet/{{this.user.profileImg}}-letter.512x512.png"
               onerror="this.onerror=null; this.src='/images/alphabet/default-letter.512x512.png';"
               alt=""
-              class="relative inline-block h-[40px] w-[40px] !rounded-full object-cover object-center m-1"
+              class="relative inline-block h-[30px] w-[30px] !rounded-full object-cover object-center m-1"
             />
           </a>
           <a
@@ -46,13 +46,14 @@
       </p>
     </div>
   </div>
-  <div id="albumImagesContainer" class="p-0 mb-6">
-    {{! album art }}
-    <img
-      src="{{{this.music.albumImg}}}"
-      alt="{{this.music.album}} album art by {{this.music.artist.name}}"
-      onerror="this.onerror=null; this.src='/images/missing-album.jpg';"
-      loading="lazy"
-    />
-  </div>
+<div id="albumImagesContainer" class="flex items-center justify-center p-0 mb-6 w-[315px] h-[315px] mx-auto">
+  {{! album art }}
+  <img
+    src="{{{this.music.albumImg}}}"
+    alt="{{this.music.album}} album art by {{this.music.artist.name}}"
+    onerror="this.onerror=null; this.src='/images/missing-album.jpg';"
+    loading="lazy"
+    class="relative inline-block w-full h-full object-cover object-center m-1"
+  />
+</div>
 </div>

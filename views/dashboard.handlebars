@@ -73,15 +73,15 @@
 </div> 
 <div class="public-posts border-b-2 p-5 flex justify-center">
     {{!-- add in users profile picture and add an each to get other users posts --}}
-    <ul id="feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center mx-auto">
+    <div id="feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center mx-auto">
         {{#each ratings}}
         {{> songcard}}
         {{/each}}
-    </ul>
+    </div>
 </div>
 </div>
-<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-xl block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 fixed bottom-4 right-4" type="button">
-  <span class="md:hidden">＋</span>
+<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-xl block text-white bg-purple-600 hover:bg-blue-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full px-5 py-2.5 text-center fixed bottom-4 right-4" type="button">
+  <span class="md:hidden md:text-3xl">＋</span>
   <span class="hidden md:inline">Share Your Picks</span>
 </button>
 
