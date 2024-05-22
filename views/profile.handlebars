@@ -23,6 +23,9 @@
                         {{#each recentlyRatedData}}
                         {{> recentrated}}
                         {{/each}}
+                        {{#unless recentlyRatedData}}
+                        <li class="bg-slate-300 text-center">No recently listened tracks</li>
+                        {{/unless}}
                     </ul>
                 </section>
             </div>
@@ -39,6 +42,9 @@
                         {{#each artistImgUrl}}
                         {{> favartist}}
                         {{/each}}
+                        {{#unless recentlyRatedData}}
+                        <li class="bg-slate-300">No favorite artists...yet</li>
+                        {{/unless}}
                     </ul>
                 </div>
             </div>
@@ -52,6 +58,9 @@
                         {{#each albumImgUrl}}
                         {{> favsong}}
                         {{/each}}
+                        {{#unless recentlyRatedData}}
+                        <li class="bg-slate-300">No favorite songs...yet</li>
+                        {{/unless}}
                     </ul>
                 </div>
             </div>
