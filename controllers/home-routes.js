@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const { User, Music, Rating, Artist } = require("../models");
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 const withAuth = require("../utils/auth");
-
 
 // homepage
 router.get("/", (req, res) => {
@@ -47,7 +46,6 @@ router.get("/settings", (req, res) => {
 
 //user dashboard
 router.get("/dashboard", withAuth, async (req, res) => {
-
   try {
     const dbRatingData = await Rating.findAll({
       include: [
@@ -66,9 +64,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
           ],
         },
       ],
-      order: [
-        ['created_at', 'DESC'],
-      ],
+      order: [["created_at", "DESC"]],
     });
     const ratings = dbRatingData.map((rating) => rating.get({ plain: true }));
 
@@ -86,7 +82,10 @@ router.get("/dashboard", withAuth, async (req, res) => {
 router.get("/charts", async (req, res) => {
   try {
     const dbRatingData = await Rating.findAll({
-      attributes: ['music.id', [Sequelize.fn('AVG', Sequelize.col('rating')), 'averageRating']],
+      attributes: [
+        "music.id",
+        [Sequelize.fn("AVG", Sequelize.col("rating")), "averageRating"],
+      ],
       include: [
         {
           model: Music,
@@ -94,97 +93,102 @@ router.get("/charts", async (req, res) => {
           include: [
             {
               model: Artist,
-              attributes: ["name"]
-            }
-          ]
-        }
+              attributes: ["name"],
+            },
+          ],
+        },
       ],
-      group: ['music.id', 'music.title', 'music.album', 'music->artist.name'],
-      order: [[Sequelize.fn('AVG', Sequelize.col('rating')), 'DESC']],
-      limit: 20
-    })
-    const ratings = dbRatingData.map((rating) => rating.get({ plain: true }))
+      group: ["music.id", "music.title", "music.album", "music->artist.name"],
+      order: [[Sequelize.fn("AVG", Sequelize.col("rating")), "DESC"]],
+      limit: 20,
+    });
+    const ratings = dbRatingData.map((rating) => rating.get({ plain: true }));
     res.render("charts", {
       title: "Charts",
       ...req.session,
-      ratings
-    })
+      ratings,
+    });
   } catch (err) {
     console.log(err);
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
 });
 
 // user profile
 router.get("/profile/:userName", async (req, res) => {
   const userName = req.params.userName;
-  const userData = await User.findOne({ where: { name: userName } })
-  const userId = userData.id
-  const dbRatingData = await Rating.findAll({
-    where: {
-      user_id: userId,
-      rating: 5,
-    },
-    include: [
-      {
-        model: Music,
-        attributes: ["title", "album", "artist_id", "albumImg"],
-        include: [
-          {
-            model: Artist,
-            attributes: ["name", "artistImg"]
-          }
-        ]
-      }
-    ]
-  });
-  const artistData = dbRatingData.map(rating => ({
-    url: rating.music.artist.artistImg,
-    artistName: rating.music.artist.name
-  }));
-  const songData = dbRatingData.map(rating => ({
-    url: rating.music.albumImg,
-    songName: rating.music.title
-  }))
-  const dbRecentlyRated = await Rating.findAll({
-    where: {
-      user_id: userId,
-    },
-    include: [
-      {
-        model: Music,
-        attributes: ["title", "album", "artist_id", "albumImg"],
-        include: [
-          {
-            model: Artist,
-            attributes: ["name", "artistImg"]
-          }
-        ]
-      }
-    ],
-    order: [["created_at", "DESC"]],
-    limit: 5
-  });
-  const recentlyRatedData = dbRecentlyRated.map(rating => ({
-    url: rating.music.albumImg,
-    songName: rating.music.title,
-    rating: rating.rating
-  }))
-  res.render("profile", {
-    title: "Profile",
-    ...req.session,
-    profilePageImg: userData.profileImg,
-    profileUsername: userName,
-    artistImgUrl: artistData,
-    albumImgUrl: songData,
-    recentlyRatedData: recentlyRatedData
-  });
+  const userData = await User.findOne({ where: { name: userName } });
+  if (!userData) {
+    res.render("404", {
+      ...req.session,
+    });
+  } else {
+    const userId = userData.id;
+    const dbRatingData = await Rating.findAll({
+      where: {
+        user_id: userId,
+        rating: 5,
+      },
+      include: [
+        {
+          model: Music,
+          attributes: ["title", "album", "artist_id", "albumImg"],
+          include: [
+            {
+              model: Artist,
+              attributes: ["name", "artistImg"],
+            },
+          ],
+        },
+      ],
+    });
+    const artistData = dbRatingData.map((rating) => ({
+      url: rating.music.artist.artistImg,
+      artistName: rating.music.artist.name,
+    }));
+    const songData = dbRatingData.map((rating) => ({
+      url: rating.music.albumImg,
+      songName: rating.music.title,
+    }));
+    const dbRecentlyRated = await Rating.findAll({
+      where: {
+        user_id: userId,
+      },
+      include: [
+        {
+          model: Music,
+          attributes: ["title", "album", "artist_id", "albumImg"],
+          include: [
+            {
+              model: Artist,
+              attributes: ["name", "artistImg"],
+            },
+          ],
+        },
+      ],
+      order: [["created_at", "DESC"]],
+      limit: 5,
+    });
+    const recentlyRatedData = dbRecentlyRated.map((rating) => ({
+      url: rating.music.albumImg,
+      songName: rating.music.title,
+      rating: rating.rating,
+    }));
+    res.render("profile", {
+      title: "Profile",
+      ...req.session,
+      profilePageImg: userData.profileImg,
+      profileUsername: userName,
+      artistImgUrl: artistData,
+      albumImgUrl: songData,
+      recentlyRatedData: recentlyRatedData,
+    });
+  }
 });
 
 router.get("/logout", (req, res) => {
   res.render("logout");
 });
-
 
 router.get("/music", (req, res) => {
   res.render("music");
