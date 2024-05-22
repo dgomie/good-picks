@@ -30,12 +30,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
-app.use((req, res) => {
-  res.status(404).render('404', {
-    ...req.session
+
+  // 404 handler
+  app.use((req, res) => {
+    res.status(404).render('404', {
+      ...req.session
     });
-});
+  });
 
 sequelize.sync({ force: false }).then(() => {
+  
   app.listen(PORT, () => console.log(`Now listening at localhost:3001`));
 });
