@@ -29,8 +29,7 @@ app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-sequelize.sync({ force: false }).then(() => {
-  app.use(routes);
+app.use(routes);
 
   // 404 handler
   app.use((req, res) => {
@@ -39,5 +38,7 @@ sequelize.sync({ force: false }).then(() => {
     });
   });
 
+sequelize.sync({ force: false }).then(() => {
+  
   app.listen(PORT, () => console.log(`Now listening at localhost:3001`));
 });
