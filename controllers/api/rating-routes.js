@@ -132,10 +132,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:user_id/:id", async (req, res) => {
+router.delete("/", async (req, res) => {
   try {
     const ratingData = await Rating.destroy({
-      where: { user_id: req.params.user_id, id: req.params.id },
+      where: {id: req.body.id },
     });
     if (!ratingData) {
       res.status(404).json({ message: "No rating found with this user!" });

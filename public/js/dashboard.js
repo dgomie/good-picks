@@ -120,7 +120,33 @@ const clearInputs = () => {
   });
 };
 
-// //refresh page to see new post after submitting
 
-// // create music item with song name/album name/genre/and artist_id
-// // create rating with rating, user_id, music_id
+//delete button logic
+
+// Select all buttons with the class 'deleteRating'
+const deleteBtns = document.querySelectorAll(".deleteRating");
+    deleteBtns.forEach((btn) => {
+      btn.addEventListener("click", function (event) {
+        event.preventDefault()
+        // Access the data-id attribute
+        const ratingId = this.dataset.id
+
+        console.log("Rating", ratingId)
+
+    
+        // Now you can use `id` in your fetch request
+        fetch(`/api/ratings/`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: ratingId, // Include `id` in the body
+          }),
+        })
+        .then(() => {
+          location.reload();
+        })
+  
+      });
+    });

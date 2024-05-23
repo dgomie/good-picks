@@ -5,27 +5,27 @@
 }
 /* Default star color */
 .text-gray-100 {
-    color: #cbd5e0; /* Adjust to your desired default color */
+    color: #cbd5e0; 
 }
 
 /* Hover color */
 .text-gray-100:hover,
 input[type="radio"]:checked ~ label.text-gray-100 {
-    color: #f59e0b; /* Adjust to your desired hover color */
+    color: #f59e0b; 
 }
 
 /* Checked color */
 input[type="radio"]:checked ~ label.text-gray-100 {
-    color: #f59e0b; /* Adjust to your desired checked color */
+    color: #f59e0b; 
 }
 
 /* Change preceding stars color on hover */
 input[type="radio"]:hover ~ label.text-gray-100,
 input[type="radio"]:checked ~ label.text-gray-100 {
-    color: #f59e0b; /* Adjust to your desired color for preceding stars */
+    color: #f59e0b; 
 }
-/* testing css */
-/* .navbar {
-    text-align: center;
-    margin-right: 25px;
-} */
+
+.dim-svg {
+    opacity: 0.25; 
+  }
+  
