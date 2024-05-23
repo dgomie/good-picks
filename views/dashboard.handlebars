@@ -75,7 +75,7 @@
     {{!-- add in users profile picture and add an each to get other users posts --}}
     <div id="feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 place-items-center mx-auto">
         {{#each ratings}}
-        {{> songcard}}
+        {{> songcard username=../username}}
         {{/each}}
     </div>
 </div>
