@@ -122,7 +122,6 @@ const clearInputs = () => {
 
 
 //delete button logic
-
 // Select all buttons with the class 'deleteRating'
 const deleteBtns = document.querySelectorAll(".deleteRating");
     deleteBtns.forEach((btn) => {
@@ -150,3 +149,6 @@ const deleteBtns = document.querySelectorAll(".deleteRating");
   
       });
     });
+
+
+//edit button logic

@@ -147,4 +147,24 @@ router.delete("/", async (req, res) => {
   }
 });
 
+router.put("/", async (req, res) => {
+  try {
+    const ratingData = await Rating.update(
+      {
+        rating: req.body.rating,
+      },
+      {
+      where: {id: req.body.id},
+    }
+  );
+    if (!ratingData) {
+      res.status(404).json({ message: "No rating found with this id!" });
+      return;
+    }
+    res.status(200).json({message: "Rating updated successfully"});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
