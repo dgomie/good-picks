@@ -2,7 +2,6 @@ const router = require("express").Router();
 const { where } = require("sequelize");
 const { Rating, Artist, Music } = require("../../models");
 
-// these aren't definite routes, just a starting point based off what I think we need.
 // route to get all ratings
 router.get("/", async (req, res) => {
   try {
@@ -147,21 +146,28 @@ router.delete("/", async (req, res) => {
   }
 });
 
+
 router.put("/", async (req, res) => {
   try {
-    const ratingData = await Rating.update(
+    const [affectedRows] = await Rating.update(
       {
         rating: req.body.rating,
       },
       {
-      where: {id: req.body.id},
+        where: {id: req.body.id},
+      }
+    );
+
+    if (affectedRows === 0) {
+      const rating = await Rating.findOne({ where: { id: req.body.id } });
+
+      if (!rating) {
+        res.status(404).json({ message: "No rating found with this id!" });
+        return;
+      }
     }
-  );
-    if (!ratingData) {
-      res.status(404).json({ message: "No rating found with this id!" });
-      return;
-    }
-    res.status(200).json({message: "Rating updated successfully"});
+
+    res.status(200).json({ message: "Rating updated successfully!" });
   } catch (err) {
     res.status(500).json(err);
   }
