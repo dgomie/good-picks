@@ -2,9 +2,9 @@ window.addEventListener("submit", function (event) {
   if (event.target.matches("#formID")) {
     event.preventDefault();
 
+    
     closeBtn.addEventListener("click", clearInputs);
 
-    // Get the form input values here, when the form is submitted
     const songInput = document.getElementById("songInput").value.trim();
     const artistInput = document.getElementById("artistInput").value.trim();
     // const albumInput = document.getElementById("albumInput").value.trim();
@@ -101,8 +101,6 @@ window.addEventListener("submit", function (event) {
       .catch((error) => {
         console.error("Error:", error);
       });
-      
-
     // brackets for event listener
   }
 });
@@ -122,26 +120,19 @@ const clearInputs = () => {
 
 
 //delete button logic
-
-// Select all buttons with the class 'deleteRating'
 const deleteBtns = document.querySelectorAll(".deleteRating");
     deleteBtns.forEach((btn) => {
-      btn.addEventListener("click", function (event) {
+      btn.addEventListener("click", function(event) {
         event.preventDefault()
-        // Access the data-id attribute
         const ratingId = this.dataset.id
 
-        console.log("Rating", ratingId)
-
-    
-        // Now you can use `id` in your fetch request
         fetch(`/api/ratings/`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            id: ratingId, // Include `id` in the body
+            id: ratingId, 
           }),
         })
         .then(() => {
@@ -150,3 +141,38 @@ const deleteBtns = document.querySelectorAll(".deleteRating");
   
       });
     });
+
+
+//update logic
+let ratingId;
+
+const editRatingBtn = document.querySelectorAll('[data-modal-target="popup-modal"]');
+editRatingBtn.forEach((btn) => {
+  btn.addEventListener("click", function(event) {
+    event.preventDefault()
+    ratingId = btn.dataset.id;
+  });
+});
+
+const body = document.body;
+body.addEventListener('click', function(event) {
+  if (event.target.matches('.submit-rating')) {
+    event.preventDefault();
+    const newRating = document.querySelector('input[name="editRating"]:checked').value;
+
+    fetch(`/api/ratings/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: ratingId,
+        rating: newRating
+      }),
+    })
+    .then(() => {
+      console.log("Rating Updated")
+      location.reload();
+    })
+  }
+});
