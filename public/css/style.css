@@ -30,4 +30,10 @@ input[type="radio"]:checked ~ label.text-gray-100 {
     color: #f59e0b; 
 }
 
-  
+button svg {
+    pointer-events: auto;
+  }
+
+#popup-modal {
+    z-index: 9999; /* any high value to ensure it's on top */
+}
