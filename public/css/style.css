@@ -34,3 +34,6 @@ button svg {
     pointer-events: auto;
   }
 
+#popup-modal {
+    z-index: 9999; /* any high value to ensure it's on top */
+}
