@@ -1,3 +1,34 @@
+let page = 1;
+let inProgress = false;
+
+function loadMoreRatings() {
+  if (inProgress) return;
+  inProgress = true;
+
+  fetch(`api/ratings/${page}`)
+      .then(response => response.text())
+      .then(data => {
+          // If the server returns an empty string, there's no more data
+          if (data === '') {
+              inProgress = false;
+              return;
+          }
+
+          document.getElementById('feed').innerHTML += data;
+          inProgress = false;
+          page++;
+      });
+}
+
+window.onscroll = function() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      console.log("reached bottom")
+        loadMoreRatings();
+    }
+};
+
+loadMoreRatings();
+
 window.addEventListener("submit", function (event) {
   if (event.target.matches("#formID")) {
     event.preventDefault();
@@ -119,43 +150,42 @@ const clearInputs = () => {
 };
 
 
-//delete button logic
-const deleteBtns = document.querySelectorAll(".deleteRating");
-    deleteBtns.forEach((btn) => {
-      btn.addEventListener("click", function(event) {
-        event.preventDefault()
-        const ratingId = this.dataset.id
-
-        fetch(`/api/ratings/`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: ratingId, 
-          }),
-        })
-        .then(() => {
-          location.reload();
-        })
+document.body.addEventListener('click', function(event) {
+  let target = event.target;
   
-      });
+  // If the target is the SVG inside the button, find the button
+  if (target.matches('svg') && target.closest('.deleteRating')) {
+    target = target.closest('.deleteRating');
+  }
+
+  if (target.matches('.deleteRating')) {
+    event.preventDefault();
+    const ratingId = target.dataset.id;
+
+    fetch(`/api/ratings/`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: ratingId, 
+      }),
+    })
+    .then(() => {
+      location.reload();
     });
-
-
-//update logic
-let ratingId;
-
-const editRatingBtn = document.querySelectorAll('[data-modal-target="popup-modal"]');
-editRatingBtn.forEach((btn) => {
-  btn.addEventListener("click", function(event) {
-    event.preventDefault()
-    ratingId = btn.dataset.id;
-  });
+  }
 });
 
-const body = document.body;
-body.addEventListener('click', function(event) {
+// Event delegation for update logic
+let ratingId;
+
+document.body.addEventListener('click', function(event) {
+  if (event.target.matches('[data-modal-target="popup-modal"]')) {
+    event.preventDefault();
+    ratingId = event.target.dataset.id;
+  }
+
   if (event.target.matches('.submit-rating')) {
     event.preventDefault();
     const newRating = document.querySelector('input[name="editRating"]:checked').value;
@@ -173,6 +203,6 @@ body.addEventListener('click', function(event) {
     .then(() => {
       console.log("Rating Updated")
       location.reload();
-    })
+    });
   }
 });
