@@ -33,3 +33,4 @@ input[type="radio"]:checked ~ label.text-gray-100 {
 button svg {
     pointer-events: auto;
   }
+
