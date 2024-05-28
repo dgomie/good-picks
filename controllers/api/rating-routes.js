@@ -2,28 +2,6 @@ const router = require("express").Router();
 const { where } = require("sequelize");
 const { Rating, Artist, Music, User } = require("../../models");
 
-// route to get all ratings
-// router.get("/", async (req, res) => {
-//   try {
-//     const ratingData = await Rating.findAll({
-//       include: [
-//         {
-//           model: user,
-//           attributes: ["name", "profileImg"],
-//         },
-//         {
-//           model: music,
-//           attributes: ["song", "artist", "album"],
-//         },
-//       ],
-//     });
-//     const ratings = ratingData.map((rating) => rating.get({ plain: true }));
-//     console.log(ratings);
-//     res.status(200).send(ratings);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 
 router.get("/data/:page", async (req, res) => {
   const limit = 9; // number of ratings per page
