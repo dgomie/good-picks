@@ -101,7 +101,7 @@ https://hidden-depths-01820-f84c3739770d.herokuapp.com/
 
 ## Project Contributors
 - Kayla Freeman
-- Franciso Ortiz
+- Francisco Ortiz
 - Wayne Perry
 - Daniel Gomez
 
